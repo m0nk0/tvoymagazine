@@ -1,0 +1,20 @@
+[
+  {
+    "slug": "nogotochki",
+    "num": 1,
+    "name": "Твои Ноготочки",
+    "tagline": "Примерка дизайнов и видео до/после для nail-мастеров",
+    "accent": "#E91E63",
+    "store": "https://www.rustore.ru/catalog/app/com.yournails.yournails.demo",
+    "status": "live"
+  },
+  {
+    "slug": "lifelens",
+    "num": 2,
+    "name": "LifeLens AI",
+    "tagline": "Биологический возраст по фото лица",
+    "accent": "#17E8B8",
+    "store": "https://www.rustore.ru/catalog/app/com.lifelens.app",
+    "status": "live"
+  }
+]

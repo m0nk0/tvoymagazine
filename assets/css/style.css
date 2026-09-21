@@ -1,0 +1,117 @@
+/* ============ ТОКЕНЫ ВСЕЛЕННОЙ ============ */
+:root {
+  --night: #050B14;
+  --storm: #0E1A26;
+  --beam: #6FE3FF;
+  --silver: #C7D3DC;
+  --pearl: #E9EEF2;
+  --ink-on-pearl: #12202C;
+  --dawn-amber: #FF9E5E;
+  --dawn-blue: #5EA8FF;
+  --world-nails: #E91E63;
+  --world-lifelens: #17E8B8;
+  --text: #E8F1F8;
+  --text-dim: #8FA3B0;
+  --font-display: 'Unbounded', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(111,227,255,.10), transparent 60%),
+    linear-gradient(180deg, var(--night), var(--storm));
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ============ ЛУЧ ВСЕЛЕННОЙ ============ */
+.beam {
+  position: fixed;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg,
+    transparent, var(--beam) 18%, var(--beam) 82%, transparent);
+  opacity: .35;
+  box-shadow: 0 0 24px rgba(111,227,255,.55);
+  pointer-events: none;
+}
+
+/* ============ ХИРО ============ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 24px;
+  position: relative;
+}
+
+.hero__over {
+  font-family: var(--font-body);
+  font-weight: 800;
+  letter-spacing: .35em;
+  font-size: 12px;
+  color: var(--beam);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(34px, 7vw, 84px);
+  line-height: 1.05;
+  text-shadow: 0 0 60px rgba(111,227,255,.25);
+}
+
+.hero__sub {
+  margin-top: 20px;
+  font-size: clamp(15px, 2vw, 20px);
+  color: var(--text-dim);
+  max-width: 560px;
+}
+
+.hero__cta {
+  margin-top: 48px;
+  display: inline-block;
+  padding: 14px 34px;
+  border: 1px solid rgba(111,227,255,.5);
+  border-radius: 999px;
+  color: var(--beam);
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-size: 13px;
+  transition: box-shadow .3s, background .3s;
+}
+.hero__cta:hover {
+  background: rgba(111,227,255,.08);
+  box-shadow: 0 0 32px rgba(111,227,255,.35);
+}
+
+/* зеркальный пол */
+.hero::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 22vh;
+  background: linear-gradient(180deg, transparent, rgba(111,227,255,.06));
+  pointer-events: none;
+}
+
+/* уважение к вестибулару */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .beam { display: none; }
+}
