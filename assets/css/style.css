@@ -42,9 +42,30 @@ body {
   opacity: .35;
   box-shadow: 0 0 24px rgba(111,227,255,.55);
   pointer-events: none;
+  z-index: 1;
 }
 
-/* ============ ХИРО ============ */
+/* ============ PRELOADER ============ */
+.preloader {
+  position: fixed; inset: 0; z-index: 50;
+  background: var(--night);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity .6s ease, visibility .6s;
+}
+.preloader.is-hidden { opacity: 0; visibility: hidden; }
+.preloader__text {
+  font-family: var(--font-display);
+  font-size: clamp(14px, 2vw, 22px);
+  color: var(--beam); letter-spacing: .12em;
+}
+.preloader__text::after { content: '▌'; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ============ ЗВЁЗДЫ ============ */
+.stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+main { position: relative; z-index: 2; }
+
+/* ============ S1 ХИРО ============ */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -54,10 +75,27 @@ body {
   text-align: center;
   padding: 24px;
   position: relative;
+  overflow: hidden;
 }
 
+/* если видео-файл НЕ обрезан снизу — поставь height: 107.6%,
+   полоса с лого уйдёт за границу экрана */
+.hero-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: .55;
+  filter: saturate(.9) contrast(1.05);
+}
+.hero__veil {
+  position: absolute; inset: 0;
+  background: radial-gradient(60% 60% at 50% 45%,
+    rgba(5,11,20,.20), rgba(5,11,20,.88));
+}
+
+.hero__over, .hero__title, .hero__sub, .hero__cta { position: relative; z-index: 2; }
+
 .hero__over {
-  font-family: var(--font-body);
   font-weight: 800;
   letter-spacing: .35em;
   font-size: 12px;
@@ -65,7 +103,6 @@ body {
   text-transform: uppercase;
   margin-bottom: 24px;
 }
-
 .hero__title {
   font-family: var(--font-display);
   font-weight: 900;
@@ -73,14 +110,12 @@ body {
   line-height: 1.05;
   text-shadow: 0 0 60px rgba(111,227,255,.25);
 }
-
 .hero__sub {
   margin-top: 20px;
   font-size: clamp(15px, 2vw, 20px);
   color: var(--text-dim);
-  max-width: 560px;
+  max-width: 620px;
 }
-
 .hero__cta {
   margin-top: 48px;
   display: inline-block;
@@ -110,8 +145,171 @@ body {
   pointer-events: none;
 }
 
-/* уважение к вестибулару */
+/* ============ СЕКЦИИ: ОБЩАЯ РАМКА ============ */
+section { position: relative; overflow: hidden; }
+
+.section-bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.05);
+}
+.section-veil {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(5,11,20,.88), rgba(5,11,20,.72) 50%, rgba(5,11,20,.92));
+}
+.section-inner {
+  position: relative; z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 120px 24px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(28px, 5vw, 56px);
+  text-align: center;
+}
+.section-sub {
+  margin-top: 12px;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: clamp(14px, 1.6vw, 18px);
+}
+
+/* ============ S2 МАНИФЕСТ ============ */
+.manifest__spark {
+  position: absolute; inset: 0;
+  z-index: 1; pointer-events: none;
+}
+.manifest__list {
+  margin-top: 64px;
+  display: grid;
+  gap: 28px;
+  list-style: none;
+}
+.manifest__item {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 20px;
+  padding: 28px 32px;
+  background: rgba(14,26,38,.55);
+  border: 1px solid rgba(111,227,255,.16);
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+}
+.manifest__num {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--beam);
+  opacity: .85;
+}
+.manifest__item h3 {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2.4vw, 26px);
+  margin-bottom: 8px;
+}
+.manifest__item p { color: var(--text-dim); }
+
+/* ============ S3 ГОРОД МИРОВ ============ */
+.worlds__grid {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 420px));
+  justify-content: center;
+  gap: 32px;
+}
+.world-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 28px 84px;
+  border-radius: 28px;
+  background: rgba(5,11,20,.66);
+  border: 1px solid var(--accent-soft);
+  text-decoration: none;
+  color: var(--text);
+  overflow: hidden;
+  transition: transform .35s ease, box-shadow .35s ease, border-color .35s;
+}
+.world-card--nails    { --accent: #E91E63; --accent-soft: rgba(231,30,99,.35); }
+.world-card--lifelens { --accent: #17E8B8; --accent-soft: rgba(23,232,184,.35); }
+
+.world-card:hover,
+.world-card:focus-visible {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  box-shadow: 0 24px 60px rgba(0,0,0,.5), 0 0 44px var(--accent-soft);
+}
+.world-card__num {
+  letter-spacing: .3em;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent);
+}
+.world-card__icon {
+  width: 96px; height: 96px;
+  margin: 20px 0 16px;
+  border-radius: 24px;
+  box-shadow: 0 0 32px var(--accent-soft);
+}
+.world-card__name {
+  font-family: var(--font-display);
+  font-size: 22px;
+}
+.world-card__tag {
+  margin-top: 8px;
+  color: var(--text-dim);
+  font-size: 14px;
+  max-width: 300px;
+}
+/* портал-арка внизу карточки */
+.world-card__portal {
+  position: absolute; left: 50%; bottom: -46px;
+  width: 120px; height: 60px;
+  transform: translateX(-50%);
+  border-radius: 120px 120px 0 0;
+  background: radial-gradient(60% 100% at 50% 100%, var(--accent), transparent 70%);
+  opacity: .35;
+  transition: opacity .35s, transform .35s;
+}
+.world-card:hover .world-card__portal,
+.world-card:focus-visible .world-card__portal {
+  opacity: .9;
+  transform: translateX(-50%) scale(1.25);
+}
+.world-card__cta {
+  position: absolute; bottom: 18px; left: 0; right: 0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: .35s;
+}
+.world-card:hover .world-card__cta,
+.world-card:focus-visible .world-card__cta {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ============ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* ============ УВАЖЕНИЕ К ВЕСТИБУЛЯРУ ============ */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .beam { display: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
 }

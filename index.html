@@ -4,20 +4,104 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Твой Magazine — цифровые вселенные</title>
-  <meta name="description" content="Приложения, которые читают то, что глаз не видит.">
+  <meta name="description" content="Реальные приложения для нового дивного мира">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+  <div class="preloader" id="preloader">
+    <p class="preloader__text">Я учу машины видеть людей</p>
+  </div>
+  <canvas class="stars" id="stars" aria-hidden="true"></canvas>
   <div class="beam" aria-hidden="true"></div>
 
-  <main class="hero">
-    <p class="hero__over">TVOYMAGAZINE • DIGITAL UNIVERSE</p>
-    <h1 class="hero__title">Я создаю<br>цифровые вселенные.</h1>
-    <p class="hero__sub">Приложения, которые читают то, что глаз не видит.</p>
-    <a class="hero__cta" href="#worlds">Войти в город</a>
+  <main>
+    <!-- ============ S1 ХИРО ============ -->
+    <section class="hero" id="top">
+      <video class="hero-video" id="heroVideo" muted loop playsinline
+             preload="metadata" poster="assets/img/hero-poster.jpg">
+        <source src="assets/video/loop.mp4" type="video/mp4">
+      </video>
+      <div class="hero__veil" aria-hidden="true"></div>
+
+      <p class="hero__over">TVOYMAGAZINE • DIGITAL UNIVERSE</p>
+      <h1 class="hero__title">Я создаю<br>цифровые вселенные</h1>
+      <p class="hero__sub">Реальные приложения для нового дивного мира</p>
+      <a class="hero__cta" href="#worlds">Войти в город</a>
+    </section>
+
+    <!-- ============ S2 МАНИФЕСТ ============ -->
+    <section class="manifest" id="manifest">
+      <div class="section-bg" style="background-image:url('assets/img/creator-manifest.jpg')"></div>
+      <div class="section-veil" aria-hidden="true"></div>
+      <canvas class="manifest__spark" id="spark" aria-hidden="true"></canvas>
+
+      <div class="section-inner">
+        <h2 class="section-title reveal">Манифест</h2>
+        <ul class="manifest__list">
+          <li class="manifest__item reveal">
+            <span class="manifest__num">01</span>
+            <div>
+              <h3>Камера — интерфейс</h3>
+              <p>Мир начинается с кадра: палец, лицо, жест — вход в цифровое</p>
+            </div>
+          </li>
+          <li class="manifest__item reveal">
+            <span class="manifest__num">02</span>
+            <div>
+              <h3>AI — переводчик</h3>
+              <p>Машины читают невидимое и переводят это в образы</p>
+            </div>
+          </li>
+          <li class="manifest__item reveal">
+            <span class="manifest__num">03</span>
+            <div>
+              <h3>Результат — магия</h3>
+              <p>Человек видит себя заново — и это меняет решения</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ S3 ГОРОД МИРОВ ============ -->
+    <section class="worlds" id="worlds">
+      <div class="section-bg" style="background-image:url('assets/img/city-rings.jpg')"></div>
+      <div class="section-veil" aria-hidden="true"></div>
+
+      <div class="section-inner">
+        <h2 class="section-title reveal">Город миров</h2>
+        <p class="section-sub reveal">Каждая башня — отдельная вселенная со своим характером</p>
+
+        <div class="worlds__grid">
+          <!-- шаг 4: href заменим на apps/nogotochki/ -->
+          <a class="world-card world-card--nails reveal"
+             href="https://www.rustore.ru/catalog/app/com.yournails.yournails.demo"
+             target="_blank" rel="noopener">
+            <span class="world-card__num">МИР 1</span>
+            <img class="world-card__icon" src="assets/img/worlds/nogotochki-icon.png" alt="Твои Ноготочки">
+            <h3 class="world-card__name">Твои Ноготочки</h3>
+            <p class="world-card__tag">Примерка дизайнов и видео до/после для nail-мастеров</p>
+            <span class="world-card__portal" aria-hidden="true"></span>
+            <span class="world-card__cta">Войти в портал</span>
+          </a>
+
+          <!-- шаг 4: href заменим на apps/lifelens/ -->
+          <a class="world-card world-card--lifelens reveal"
+             href="https://www.rustore.ru/catalog/app/com.lifelens.app"
+             target="_blank" rel="noopener">
+            <span class="world-card__num">МИР 2</span>
+            <img class="world-card__icon" src="assets/img/worlds/lifelens-icon.png" alt="LifeLens AI">
+            <h3 class="world-card__name">LifeLens AI</h3>
+            <p class="world-card__tag">Биологический возраст по фото лица</p>
+            <span class="world-card__portal" aria-hidden="true"></span>
+            <span class="world-card__cta">Войти в портал</span>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script src="assets/js/main.js"></script>
