@@ -11,8 +11,8 @@ if (pre) {
       pre.classList.add('is-hidden');
       sessionStorage.setItem('universeSeen', '1');
     };
-    window.addEventListener('load', () => setTimeout(hide, 1400));
-    setTimeout(hide, 4500);
+    window.addEventListener('load', () => setTimeout(hide, 3000));
+    setTimeout(hide, 6500); // страховка от вечного прелоадера
   }
 }
 
