@@ -1,23 +1,33 @@
 // Портал-переход: выход из вселенной в мир и вход обратно
 const reducedPortal = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const flash = document.createElement('div');
+// Создаём вспышку заново при каждой загрузке — чистый старт
+let flash = document.createElement('div');
 flash.className = 'portal-flash';
 flash.setAttribute('aria-hidden', 'true');
 document.body.appendChild(flash);
 
-// Сбрасываем вспышку ПЕРЕД уходом страницы в bfcache,
-// чтобы в кэш не уезжала застывшая заливка
+// === BFCACHE FIX ===
+// Перед уходом — обнуляем вспышку, чтобы в кэш уехал чистый DOM
 addEventListener('pagehide', () => {
   flash.classList.remove('is-out', 'is-in');
+  flash.removeAttribute('style');
 });
 
-// И страховка: если страница всё же восстановилась с классами — чистим
-addEventListener('pageshow', () => {
-  flash.classList.remove('is-out', 'is-in');
+// После возврата — пересоздаём вспышку с нуля (надёжнее, чем сбрасывать)
+addEventListener('pageshow', (e) => {
+  if (e.persisted) {
+    // Страница вернулась из bfcache — выбрасываем старый flash
+    const old = document.querySelector('.portal-flash');
+    if (old) old.remove();
+    flash = document.createElement('div');
+    flash.className = 'portal-flash';
+    flash.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(flash);
+  }
 });
 
-// ВЫХОД: клик по карточке мира
+// === ВЫХОД: клик по карточке мира ===
 document.querySelectorAll('[data-portal]').forEach((a) => {
   a.addEventListener('click', (e) => {
     if (reducedPortal) return;
@@ -30,7 +40,7 @@ document.querySelectorAll('[data-portal]').forEach((a) => {
   });
 });
 
-// ВХОД: обратная вспышка на страницах миров
+// === ВХОД: обратная вспышка на страницах миров ===
 if (document.body.hasAttribute('data-world-enter') && !reducedPortal) {
   flash.style.setProperty('--accent',
     getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#6FE3FF');
