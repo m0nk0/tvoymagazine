@@ -6,6 +6,17 @@ flash.className = 'portal-flash';
 flash.setAttribute('aria-hidden', 'true');
 document.body.appendChild(flash);
 
+// Сбрасываем вспышку ПЕРЕД уходом страницы в bfcache,
+// чтобы в кэш не уезжала застывшая заливка
+addEventListener('pagehide', () => {
+  flash.classList.remove('is-out', 'is-in');
+});
+
+// И страховка: если страница всё же восстановилась с классами — чистим
+addEventListener('pageshow', () => {
+  flash.classList.remove('is-out', 'is-in');
+});
+
 // ВЫХОД: клик по карточке мира
 document.querySelectorAll('[data-portal]').forEach((a) => {
   a.addEventListener('click', (e) => {
