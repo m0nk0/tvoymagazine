@@ -46,7 +46,7 @@ body {
 }
 .preloader.is-hidden { opacity: 0; visibility: hidden; }
 
-.preloader__warp { position: absolute; inset: 0; }
+.preloader__warp { position: absolute; inset: 0; mix-blend-mode: screen; }
 
 .preloader__ring {
   position: relative;
