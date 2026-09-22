@@ -30,6 +30,8 @@
 </head>
 <body data-world-enter>
   <div class="preloader" id="preloader">
+    <canvas class="preloader__warp" id="warp" aria-hidden="true"></canvas>
+    <div class="preloader__ring" aria-hidden="true"><i></i></div>
     <p class="preloader__text">Портал: Мир 2</p>
   </div>
   <canvas class="stars" id="stars" aria-hidden="true"></canvas>
@@ -64,6 +66,17 @@
         <h3>Динамика молодости</h3>
         <p>Повторяй сканы и смотри, как биологический возраст отстаёт от паспортного</p>
       </div>
+    </section>
+
+    <!-- ============ ОКНО СКАНА: ГЛАЗ С HUD ============ -->
+    <section class="scan-window-wrap">
+      <div class="scan-window">
+        <video data-autoplay muted loop playsinline preload="metadata"
+               poster="../../assets/img/worlds/lifelens/scan-poster.jpg">
+          <source src="../../assets/video/lifelens-scan.mp4" type="video/mp4">
+        </video>
+      </div>
+      <p class="scan-caption">Так модель видит тебя: скан, маркеры, калибровка — и рождается цифра биологического возраста</p>
     </section>
 
     <section class="world-gallery">
