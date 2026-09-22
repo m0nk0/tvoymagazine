@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Твои Ноготочки — Мир 1 | Твой Magazine</title>
+  <meta name="description" content="Примерка дизайнов и видео до/после для nail-мастеров">
+  <link rel="icon" type="image/png" href="../../assets/img/worlds/nogotochki-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../assets/css/world.css">
+  <style>
+    body { --accent: #E91E63; --accent-soft: rgba(231,30,99,.35); }
+    .world-hero__bg {
+      background-image:
+        url('../../assets/img/worlds/nogotochki-interior.jpg'),
+        url('../../assets/img/city-dawn.jpg');
+    }
+  </style>
+</head>
+<body data-world-enter>
+  <div class="preloader" id="preloader">
+    <p class="preloader__text">Портал: Мир 1</p>
+  </div>
+  <canvas class="stars" id="stars" aria-hidden="true"></canvas>
+
+  <main>
+    <section class="world-hero">
+      <div class="world-hero__bg" aria-hidden="true"></div>
+      <div class="world-hero__veil" aria-hidden="true"></div>
+      <a class="world-back" href="../../">← Вселенная</a>
+
+      <span class="world-num">Мир 1 • Beauty-тех</span>
+      <h1 class="world-title">Твои Ноготочки</h1>
+      <p class="world-tag">Примерка дизайнов и видео до/после для nail-мастеров</p>
+      <a class="world-cta" href="https://www.rustore.ru/catalog/app/com.yournails.yournails.demo"
+         target="_blank" rel="noopener">Забрать в RuStore</a>
+    </section>
+
+    <section class="world-feats">
+      <div class="world-feat">
+        <h3>Примерка на живом пальце</h3>
+        <p>Фото клиентки, сверху дизайн: цвет, материал, узор, форма — результат виден до начала работы</p>
+      </div>
+      <div class="world-feat">
+        <h3>Видео за 5 секунд</h3>
+        <p>Журнальная обложка «до/после» готова для Reels и Stories — клиентка видит магию, ты получаешь записи</p>
+      </div>
+      <div class="world-feat">
+        <h3>База клиентов</h3>
+        <p>Визиты, фото работ, цены, напоминания — всё в одном месте, всё на твоём устройстве</p>
+      </div>
+      <div class="world-feat">
+        <h3>Слои как в фотошопе</h3>
+        <p>Ноготь, рамка, узор, кутикула, фон — каждый слой живёт своей жизнью</p>
+      </div>
+    </section>
+
+    <section class="world-gallery">
+      <img src="../../assets/img/worlds/nogotochki/screen1.jpg" alt="Примерка: дизайн на живом пальце" loading="lazy">
+      <img src="../../assets/img/worlds/nogotochki/screen2.jpg" alt="Видео-обложка журнала" loading="lazy">
+      <img src="../../assets/img/worlds/nogotochki/screen3.jpg" alt="Слои дизайна" loading="lazy">
+      <img src="../../assets/img/worlds/nogotochki/screen4.jpg" alt="Палитры цветов" loading="lazy">
+    </section>
+
+    <video class="world-video" muted loop playsinline preload="metadata"
+           poster="../../assets/img/hero-poster.jpg">
+      <source src="../../assets/video/nogotochki-loop.mp4" type="video/mp4">
+    </video>
+
+    <p class="world-soon">Хроники создания мира — скоро</p>
+  </main>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/portal.js"></script>
+</body>
+</html>

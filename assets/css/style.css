@@ -300,3 +300,14 @@ section { position: relative; overflow: hidden; }
   .beam { display: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
+/* ============ ПОРТАЛ-ПЕРЕХОД ============ */
+.portal-flash {
+  position: fixed; inset: 0; z-index: 60; pointer-events: none;
+  background: radial-gradient(60% 60% at 50% 60%, var(--accent, #6FE3FF), transparent 70%);
+  opacity: 0; transform: scale(.2);
+}
+.portal-flash.is-out { animation: portalOut .45s ease-in forwards; }
+.portal-flash.is-in  { animation: portalIn .5s ease-out forwards; }
+@keyframes portalOut { to { opacity: 1; transform: scale(1.6); } }
+@keyframes portalIn  { from { opacity: 1; transform: scale(1.6); } to { opacity: 0; transform: scale(.2); } }
+@media (prefers-reduced-motion: reduce) { .portal-flash { display: none; } }

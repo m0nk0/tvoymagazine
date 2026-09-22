@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LifeLens AI — Мир 2 | Твой Magazine</title>
+  <meta name="description" content="Биологический возраст по фото лица">
+  <link rel="icon" type="image/png" href="../../assets/img/worlds/lifelens-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../assets/css/world.css">
+  <style>
+    body { --accent: #17E8B8; --accent-soft: rgba(23,232,184,.35); }
+    .world-hero__bg {
+      background-image:
+        url('../../assets/img/worlds/lifelens-interior.jpg'),
+        url('../../assets/img/city-lake.jpg');
+    }
+  </style>
+</head>
+<body data-world-enter>
+  <div class="preloader" id="preloader">
+    <p class="preloader__text">Портал: Мир 2</p>
+  </div>
+  <canvas class="stars" id="stars" aria-hidden="true"></canvas>
+
+  <main>
+    <section class="world-hero">
+      <div class="world-hero__bg" aria-hidden="true"></div>
+      <div class="world-hero__veil" aria-hidden="true"></div>
+      <a class="world-back" href="../../">← Вселенная</a>
+
+      <span class="world-num">Мир 2 • Health-тех</span>
+      <h1 class="world-title">LifeLens AI</h1>
+      <p class="world-tag">Биологический возраст по фото лица</p>
+      <a class="world-cta" href="https://www.rustore.ru/catalog/app/com.lifelens.app"
+         target="_blank" rel="noopener">Забрать в RuStore</a>
+    </section>
+
+    <section class="world-feats">
+      <div class="world-feat">
+        <h3>Скан вместо анализов</h3>
+        <p>Три замера за день, четыре дня подряд — модель калибруется под тебя</p>
+      </div>
+      <div class="world-feat">
+        <h3>Точность ±1–2 года</h3>
+        <p>Эпигенетические часы плюс нейросетевая калибровка по твоим данным</p>
+      </div>
+      <div class="world-feat">
+        <h3>Образ жизни в уравнении</h3>
+        <p>Сон, активность, курение, ИМТ — всё влияет на итоговую цифру</p>
+      </div>
+      <div class="world-feat">
+        <h3>Динамика молодости</h3>
+        <p>Повторяй сканы и смотри, как биологический возраст отстаёт от паспортного</p>
+      </div>
+    </section>
+
+    <section class="world-gallery">
+      <img src="../../assets/img/worlds/lifelens/screen1.jpg" alt="Результат: биологический возраст" loading="lazy">
+      <img src="../../assets/img/worlds/lifelens/screen2.jpg" alt="Анкета здоровья" loading="lazy">
+      <img src="../../assets/img/worlds/lifelens/screen3.jpg" alt="Скан лица" loading="lazy">
+      <img src="../../assets/img/worlds/lifelens/screen4.jpg" alt="Этапы расчёта AI" loading="lazy">
+      <img src="../../assets/img/worlds/lifelens/screen5.jpg" alt="Логотип LifeLens" loading="lazy">
+    </section>
+
+    <p class="world-soon">Хроники создания мира — скоро</p>
+  </main>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/portal.js"></script>
+</body>
+</html>

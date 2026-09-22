@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
+  <script src="assets/js/portal.js"></script>
 <body>
   <div class="preloader" id="preloader">
     <p class="preloader__text">Я учу машины работать на людей</p>
@@ -77,9 +78,8 @@
 
         <div class="worlds__grid">
           <!-- шаг 4: href заменим на apps/nogotochki/ -->
-          <a class="world-card world-card--nails reveal"
-             href="https://www.rustore.ru/catalog/app/com.yournails.yournails.demo"
-             target="_blank" rel="noopener">
+                    <a class="world-card world-card--nails reveal" data-portal
+             href="apps/nogotochki/">
             <span class="world-card__num">МИР 1</span>
             <img class="world-card__icon" src="assets/img/worlds/nogotochki-icon.png" alt="Твои Ноготочки">
             <h3 class="world-card__name">Твои Ноготочки</h3>
@@ -88,10 +88,8 @@
             <span class="world-card__cta">Войти в портал</span>
           </a>
 
-          <!-- шаг 4: href заменим на apps/lifelens/ -->
-          <a class="world-card world-card--lifelens reveal"
-             href="https://www.rustore.ru/catalog/app/com.lifelens.app"
-             target="_blank" rel="noopener">
+          <a class="world-card world-card--lifelens reveal" data-portal
+             href="apps/lifelens/">
             <span class="world-card__num">МИР 2</span>
             <img class="world-card__icon" src="assets/img/worlds/lifelens-icon.png" alt="LifeLens AI">
             <h3 class="world-card__name">LifeLens AI</h3>
