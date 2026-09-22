@@ -30,7 +30,6 @@ body {
   overflow-x: hidden;
 }
 
-
 /* ============ PRELOADER ============ */
 .preloader {
   position: fixed; inset: 0; z-index: 50;
@@ -94,8 +93,8 @@ main { position: relative; z-index: 2; }
   font-weight: 900;
   font-size: clamp(34px, 7vw, 84px);
   line-height: 1.05;
-  text-shadow: 0 0 60px rgba(111,227,255,.25);
-  opacity: .7;   /* ← новая строка: 30% прозрачности, видео дышит сквозь буквы */
+  text-shadow: 0 0 40px rgba(111,227,255,.12);
+  opacity: .6;
 }
 .hero__sub {
   margin-top: 20px;
@@ -294,12 +293,6 @@ section { position: relative; overflow: hidden; }
 }
 .reveal.is-in { opacity: 1; transform: none; }
 
-/* ============ УВАЖЕНИЕ К ВЕСТИБУЛЯРУ ============ */
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .beam { display: none; }
-  .reveal { opacity: 1; transform: none; transition: none; }
-}
 /* ============ ПОРТАЛ-ПЕРЕХОД ============ */
 .portal-flash {
   position: fixed; inset: 0; z-index: 60; pointer-events: none;
@@ -310,4 +303,68 @@ section { position: relative; overflow: hidden; }
 .portal-flash.is-in  { animation: portalIn .5s ease-out forwards; }
 @keyframes portalOut { to { opacity: 1; transform: scale(1.6); } }
 @keyframes portalIn  { from { opacity: 1; transform: scale(1.6); } to { opacity: 0; transform: scale(.2); } }
-@media (prefers-reduced-motion: reduce) { .portal-flash { display: none; } }
+
+/* ============ ФУТЕР-ПАНОРАМА ============ */
+.footer { position: relative; overflow: hidden; }
+.footer__bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+.footer__veil {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(5,11,20,.92), rgba(5,11,20,.78) 40%, rgba(5,11,20,.96));
+}
+.footer__inner {
+  position: relative; z-index: 2;
+  max-width: 1100px; margin: 0 auto;
+  padding: 96px 24px 40px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.4fr;
+  gap: 32px;
+}
+.footer__logo {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: .2em;
+}
+.footer__note {
+  margin-top: 10px;
+  color: var(--text-dim);
+  font-size: 14px;
+  max-width: 280px;
+}
+.footer__head {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--beam);
+  margin-bottom: 14px;
+}
+.footer__col { display: flex; flex-direction: column; gap: 10px; }
+.footer__col a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color .3s;
+}
+.footer__col a:hover { color: var(--text); }
+.footer__copy {
+  position: relative; z-index: 2;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 12px;
+  padding: 0 24px 32px;
+}
+@media (max-width: 760px) {
+  .footer__inner { grid-template-columns: 1fr 1fr; }
+}
+
+/* ============ УВАЖЕНИЕ К ВЕСТИБУЛЯРУ ============ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .portal-flash { display: none; }
+}

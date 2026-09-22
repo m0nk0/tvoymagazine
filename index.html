@@ -5,18 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Твой Magazine — цифровые вселенные</title>
   <meta name="description" content="Реальные приложения для нового дивного мира">
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <meta property="og:title" content="Твой Magazine — цифровые вселенные">
+  <meta property="og:description" content="Реальные приложения для нового дивного мира">
+  <meta property="og:type" content="website">
+  <!-- шаг 5.5: заменим на https://tvoymagazine.ru/ после подключения домена -->
+  <meta property="og:image" content="https://m0nk0.github.io/assets/og-main.jpg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-  <script src="assets/js/portal.js"></script>
 <body>
   <div class="preloader" id="preloader">
     <p class="preloader__text">Я учу машины работать на людей</p>
   </div>
   <canvas class="stars" id="stars" aria-hidden="true"></canvas>
-  
 
   <main>
     <!-- ============ S1 ХИРО ============ -->
@@ -77,8 +84,7 @@
         <p class="section-sub reveal">Каждая башня — отдельная вселенная со своим характером</p>
 
         <div class="worlds__grid">
-          <!-- шаг 4: href заменим на apps/nogotochki/ -->
-                    <a class="world-card world-card--nails reveal" data-portal
+          <a class="world-card world-card--nails reveal" data-portal
              href="apps/nogotochki/">
             <span class="world-card__num">МИР 1</span>
             <img class="world-card__icon" src="assets/img/worlds/nogotochki-icon.png" alt="Твои Ноготочки">
@@ -102,6 +108,35 @@
     </section>
   </main>
 
+  <!-- ============ ФУТЕР ============ -->
+  <footer class="footer">
+    <div class="footer__bg" style="background-image:url('assets/img/city-lake.jpg')" aria-hidden="true"></div>
+    <div class="footer__veil" aria-hidden="true"></div>
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <p class="footer__logo">TVOYMAGAZINE</p>
+        <p class="footer__note">Реальные приложения для нового дивного мира</p>
+      </div>
+      <nav class="footer__col" aria-label="Миры">
+        <p class="footer__head">Миры</p>
+        <a href="apps/nogotochki/">Твои Ноготочки</a>
+        <a href="apps/lifelens/">LifeLens AI</a>
+      </nav>
+      <nav class="footer__col" aria-label="Разделы">
+        <p class="footer__head">Вселенная</p>
+        <a href="#manifest">Манифест</a>
+        <a href="#worlds">Город миров</a>
+      </nav>
+      <nav class="footer__col" aria-label="Правовое">
+        <p class="footer__head">Правовое</p>
+        <a href="yournails/privacy.html">Политика конфиденциальности</a>
+        <a href="mailto:hello@tvoymagazine.ru">Написать создателю</a>
+      </nav>
+    </div>
+    <p class="footer__copy">© 2026 Твой Magazine • Создано человеком и машинами, которые работают на людей</p>
+  </footer>
+
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/portal.js"></script>
 </body>
 </html>
