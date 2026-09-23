@@ -69,18 +69,15 @@ if (pre) {
   }
 }
 
-// ===== HERO-ВИДЕО: старт после прелоадера + акцент-пауза на фигуре + заморозка =====
-const HERO_HOLD_AT   = 3;    // секунда видео с фигурой создателя
-const HERO_HOLD_MS   = 3000; // длительность акцент-паузы
-const HERO_FREEZE_AT = 10;   // финальная заморозка навсегда
+// ===== HERO-ВИДЕО: старт после прелоадера + заморозка навсегда =====
+const HERO_FREEZE_AT = 10;
 const video = document.getElementById('heroVideo');
 if (video && !reduced) {
   video.loop = false;
-  // буфер качается ещё под прелоадером — старт будет гладким (desktop)
   if (matchMedia('(pointer: fine)').matches) video.preload = 'auto';
 
-  let frozen = false, holding = false, holdDone = false, started = false, heroVisible = true;
-  const play = () => { if (started && !frozen && !holding && heroVisible && !document.hidden) video.play().catch(() => {}); };
+  let frozen = false, started = false, heroVisible = true;
+  const play = () => { if (started && !frozen && heroVisible && !document.hidden) video.play().catch(() => {}); };
   const freeze = () => { frozen = true; video.pause(); };
 
   const start = () => { if (started) return; started = true; play(); };
@@ -90,19 +87,10 @@ if (video && !reduced) {
   });
 
   video.addEventListener('timeupdate', () => {
-    // акцент-пауза — ровно один раз
-    if (!holdDone && video.currentTime >= HERO_HOLD_AT) {
-      holdDone = true;
-      holding = true;
-      video.pause();
-      setTimeout(() => { holding = false; play(); }, HERO_HOLD_MS);
-      return;
-    }
     if (!frozen && video.currentTime >= HERO_FREEZE_AT) freeze();
   });
   video.addEventListener('ended', freeze);
 
-  // наблюдатели только ПОСЛЕ командного старта — раньше не трогают видео
   new IntersectionObserver((es) => {
     heroVisible = es[0].isIntersecting;
     if (!started) return;
