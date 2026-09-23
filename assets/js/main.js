@@ -69,27 +69,34 @@ if (pre) {
   }
 }
 
-// ===== HERO-ВИДЕО: старт после прелоадера + заморозка навсегда =====
+// ===== HERO-ВИДЕО: старт ТОЛЬКО после прелоадера И при готовом буфере =====
 const HERO_FREEZE_AT = 10;
 const video = document.getElementById('heroVideo');
 if (video && !reduced) {
   video.loop = false;
-  // качаем буфер ещё ПОД прелоадером
   if (matchMedia('(pointer: fine)').matches) {
     video.preload = 'auto';
-    video.load(); // явная команда: начни качать сейчас
+    video.load();
   }
 
-  let frozen = false, started = false, heroVisible = true;
+  let frozen = false, started = false, heroVisible = true, bufferReady = false;
   const play = () => { if (started && !frozen && heroVisible && !document.hidden) video.play().catch(() => {}); };
   const freeze = () => { frozen = true; video.pause(); };
 
-  // старт ТОЛЬКО когда браузер готов сыграть всё без пауз
-  video.addEventListener('canplaythrough', () => { if (!started) { started = true; play(); } });
+  const start = () => { if (started) return; started = true; play(); };
+  const tryStart = () => { if (bufferReady) start(); };
 
-  // на всякий случай: если canplaythrough не пришёл (очень медленная сеть) — старт через 4 сек
+  // условие 1: буфер готов
+  video.addEventListener('canplaythrough', () => { bufferReady = true; tryStart(); });
+  // условие 2: прелоадер растворился
   onUniverseReady(() => {
-    if (matchMedia('(pointer: fine)')) setTimeout(() => { if (!started) { started = true; play(); } }, 4000);
+    if (matchMedia('(pointer: fine)').matches) {
+      tryStart();
+      // страховка медленной сети: если canplaythrough всё не приходит
+      setTimeout(() => { if (!started) start(); }, 4000);
+    } else {
+      addEventListener('touchstart', start, { once: true });
+    }
   });
 
   video.addEventListener('timeupdate', () => {
@@ -102,13 +109,11 @@ if (video && !reduced) {
     if (!started) return;
     heroVisible ? play() : video.pause();
   }, { threshold: 0.25 }).observe(video);
-  
   document.addEventListener('visibilitychange', () => {
     if (!started) return;
     document.hidden ? video.pause() : play();
   });
 }
-
 // ===== ИСКРЫ МАНИФЕСТА =====
 const spark = document.getElementById('spark');
 if (spark && !reduced) {
