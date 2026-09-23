@@ -70,13 +70,13 @@ if (pre) {
 }
 
 // ===== HERO-ВИДЕО: старт после прелоадера + акцент-пауза на фигуре + заморозка =====
-const HERO_HOLD_AT   = 3;    // секунда видео с фигурой создателя — держим акцент
+const HERO_HOLD_AT   = 3;    // секунда видео с фигурой создателя
 const HERO_HOLD_MS   = 3000; // длительность акцент-паузы
 const HERO_FREEZE_AT = 10;   // финальная заморозка навсегда
 const video = document.getElementById('heroVideo');
 if (video && !reduced) {
   video.loop = false;
-  let frozen = false, holding = false, started = false, heroVisible = true;
+  let frozen = false, holding = false, holdDone = false, started = false, heroVisible = true;
   const play = () => { if (!frozen && !holding && heroVisible && !document.hidden) video.play().catch(() => {}); };
   const freeze = () => { frozen = true; video.pause(); };
 
@@ -87,13 +87,15 @@ if (video && !reduced) {
   });
 
   video.addEventListener('timeupdate', () => {
-    if (!holding && HERO_HOLD_AT !== null && video.currentTime >= HERO_HOLD_AT) {
+    // акцент-пауза — ровно ОДИН раз, иначе момент проскакивает рывками
+    if (!holdDone && video.currentTime >= HERO_HOLD_AT) {
+      holdDone = true;
       holding = true;
       video.pause();
       setTimeout(() => { holding = false; play(); }, HERO_HOLD_MS);
       return;
     }
-    if (HERO_FREEZE_AT !== null && video.currentTime >= HERO_FREEZE_AT) freeze();
+    if (!frozen && video.currentTime >= HERO_FREEZE_AT) freeze();
   });
   video.addEventListener('ended', freeze);
 
@@ -104,43 +106,6 @@ if (video && !reduced) {
   document.addEventListener('visibilitychange', () => {
     document.hidden ? video.pause() : play();
   });
-}
-
-// ===== ЗВЁЗДЫ С ПАРАЛЛАКСОМ =====
-const canvas = document.getElementById('stars');
-if (canvas && !reduced) {
-  const ctx = canvas.getContext('2d');
-  let stars = [];
-  const make = () => {
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
-    const n = Math.round(innerWidth * innerHeight / 9000);
-    stars = Array.from({ length: n }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 1.4 + 0.3,
-      a: Math.random() * 0.5 + 0.15,
-      p: Math.random() * 0.35 + 0.05,
-    }));
-  };
-  make();
-  addEventListener('resize', make);
-  let sy = scrollY;
-  addEventListener('scroll', () => { sy = scrollY; }, { passive: true });
-  const draw = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#BFE9FF';
-    for (const s of stars) {
-      let y = (s.y - sy * s.p) % canvas.height;
-      if (y < 0) y += canvas.height;
-      ctx.globalAlpha = s.a;
-      ctx.beginPath();
-      ctx.arc(s.x, y, s.r, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    requestAnimationFrame(draw);
-  };
-  draw();
 }
 
 // ===== ИСКРЫ МАНИФЕСТА =====
