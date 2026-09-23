@@ -502,7 +502,11 @@ section { position: relative; overflow: hidden; }
   background: var(--pearl);
   box-shadow: 0 0 30px rgba(111,227,255,.25);
 }
-.holo-card__qr canvas { display: block; width: 100%; height: 100%; border-radius: 8px; }
+.holo-card__qr img {
+  display: block;
+  width: 100%; height: 100%;
+  border-radius: 8px;
+}
 .holo-card__scanline {
   position: absolute; left: 6%; right: 6%; top: 10%;
   height: 2px;
