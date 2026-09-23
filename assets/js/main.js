@@ -69,7 +69,7 @@ if (pre) {
   }
 }
 
-// ===== HERO-ВИДЕО: старт ТОЛЬКО после прелоадера И при готовом буфере =====
+// ===== HERO-ВИДЕО: старт строго с нуля, после прелоадера И с готовым буфером =====
 const HERO_FREEZE_AT = 10;
 const video = document.getElementById('heroVideo');
 if (video && !reduced) {
@@ -79,21 +79,26 @@ if (video && !reduced) {
     video.load();
   }
 
-  let frozen = false, started = false, heroVisible = true, bufferReady = false;
+  let frozen = false, started = false, heroVisible = true;
+  let bufferReady = false, universeUp = false;
   const play = () => { if (started && !frozen && heroVisible && !document.hidden) video.play().catch(() => {}); };
   const freeze = () => { frozen = true; video.pause(); };
+  const start = () => {
+    if (started) return;
+    started = true;
+    video.currentTime = 0; // страховка: старт строго с нуля
+    play();
+  };
+  const tryStart = () => { if (bufferReady && universeUp) start(); };
 
-  const start = () => { if (started) return; started = true; play(); };
-  const tryStart = () => { if (bufferReady) start(); };
-
-  // условие 1: буфер готов
+  // флаг 1: буфер готов
   video.addEventListener('canplaythrough', () => { bufferReady = true; tryStart(); });
-  // условие 2: прелоадер растворился
+  // флаг 2: прелоадер растворился
   onUniverseReady(() => {
+    universeUp = true;
     if (matchMedia('(pointer: fine)').matches) {
       tryStart();
-      // страховка медленной сети: если canplaythrough всё не приходит
-      setTimeout(() => { if (!started) start(); }, 4000);
+      setTimeout(() => { if (!started) start(); }, 4000); // медленная сеть
     } else {
       addEventListener('touchstart', start, { once: true });
     }
@@ -114,6 +119,7 @@ if (video && !reduced) {
     document.hidden ? video.pause() : play();
   });
 }
+
 // ===== ИСКРЫ МАНИФЕСТА =====
 const spark = document.getElementById('spark');
 if (spark && !reduced) {
