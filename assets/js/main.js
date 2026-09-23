@@ -76,8 +76,11 @@ const HERO_FREEZE_AT = 10;   // финальная заморозка навсе
 const video = document.getElementById('heroVideo');
 if (video && !reduced) {
   video.loop = false;
+  // буфер качается ещё под прелоадером — старт будет гладким (desktop)
+  if (matchMedia('(pointer: fine)').matches) video.preload = 'auto';
+
   let frozen = false, holding = false, holdDone = false, started = false, heroVisible = true;
-  const play = () => { if (!frozen && !holding && heroVisible && !document.hidden) video.play().catch(() => {}); };
+  const play = () => { if (started && !frozen && !holding && heroVisible && !document.hidden) video.play().catch(() => {}); };
   const freeze = () => { frozen = true; video.pause(); };
 
   const start = () => { if (started) return; started = true; play(); };
@@ -87,7 +90,7 @@ if (video && !reduced) {
   });
 
   video.addEventListener('timeupdate', () => {
-    // акцент-пауза — ровно ОДИН раз, иначе момент проскакивает рывками
+    // акцент-пауза — ровно один раз
     if (!holdDone && video.currentTime >= HERO_HOLD_AT) {
       holdDone = true;
       holding = true;
@@ -99,11 +102,14 @@ if (video && !reduced) {
   });
   video.addEventListener('ended', freeze);
 
+  // наблюдатели только ПОСЛЕ командного старта — раньше не трогают видео
   new IntersectionObserver((es) => {
     heroVisible = es[0].isIntersecting;
+    if (!started) return;
     heroVisible ? play() : video.pause();
   }, { threshold: 0.25 }).observe(video);
   document.addEventListener('visibilitychange', () => {
+    if (!started) return;
     document.hidden ? video.pause() : play();
   });
 }
