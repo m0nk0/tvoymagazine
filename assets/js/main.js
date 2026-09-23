@@ -57,16 +57,30 @@ if (pre) {
   }
 }
 
-// ===== HERO-ВИДЕО: desktop сам, mobile — по первому касанию =====
+// ===== HERO-ВИДЕО: один проход → заморозка навсегда =====
+const HERO_FREEZE_AT = 10; // секунда остановки; null = доиграть до конца и встать на последнем кадре
 const video = document.getElementById('heroVideo');
 if (video && !reduced) {
-  if (matchMedia('(pointer: fine)').matches) {
-    video.play().catch(() => {});
-  } else {
-    const start = () => video.play().catch(() => {});
-    addEventListener('touchstart', start, { once: true });
-    addEventListener('scroll', start, { once: true });
-  }
+  video.loop = false;
+  let frozen = false;
+  const play = () => { if (!frozen) video.play().catch(() => {}); };
+  const freeze = () => { frozen = true; video.pause(); };
+
+  if (matchMedia('(pointer: fine)').matches) play();
+  else addEventListener('touchstart', play, { once: true });
+
+  video.addEventListener('timeupdate', () => {
+    if (HERO_FREEZE_AT !== null && video.currentTime >= HERO_FREEZE_AT) freeze();
+  });
+  video.addEventListener('ended', freeze);
+
+  // не жжём CPU вне кадра и в фоновой вкладке
+  new IntersectionObserver((es) => {
+    es[0].isIntersecting ? play() : video.pause();
+  }, { threshold: 0.25 }).observe(video);
+  document.addEventListener('visibilitychange', () => {
+    document.hidden ? video.pause() : play();
+  });
 }
 
 // ===== ЗВЁЗДЫ С ПАРАЛЛАКСОМ =====
