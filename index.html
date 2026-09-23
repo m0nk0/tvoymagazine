@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=4">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <div class="preloader" id="preloader">
@@ -30,7 +30,7 @@
   <main>
     <!-- ============ S1 ХИРО ============ -->
     <section class="hero" id="top">
-      <video class="hero-video" id="heroVideo" muted loop playsinline
+      <video class="hero-video" id="heroVideo" muted playsinline
              preload="metadata" poster="assets/img/hero-poster.jpg">
         <source src="assets/video/loop.mp4" type="video/mp4">
       </video>
@@ -40,6 +40,10 @@
       <h1 class="hero__title">Я создаю<br>цифровые вселенные</h1>
       <p class="hero__sub">Реальные приложения для нового дивного мира</p>
       <a class="hero__cta" href="#worlds">Войти в город</a>
+      <button class="hero__signal" id="signalBtn" type="button">
+        <span class="hero__signal-ring" aria-hidden="true"></span>
+        Связаться с создателем
+      </button>
     </section>
 
     <!-- ============ S2 МАНИФЕСТ ============ -->
@@ -110,9 +114,9 @@
     </section>
   </main>
 
-  <!-- ============ ФУТЕР ============ -->
+  <!-- ============ ФУТЕР: ТИШИНА ПОСЛЕ СИМФОНИИ ============ -->
   <footer class="footer">
-      <div class="footer__inner">
+    <div class="footer__inner">
       <div class="footer__brand">
         <p class="footer__logo">TVOYMAGAZINE</p>
         <p class="footer__note">Реальные приложения для нового дивного мира</p>
@@ -131,12 +135,37 @@
         <p class="footer__head">Правовое</p>
         <a href="yournails/privacy.html">Политика конфиденциальности</a>
         <a href="mailto:valerij-vasiljev@list.ru">Написать создателю</a>
+        <a href="https://t.me/valer_vasilev" target="_blank" rel="noopener">Telegram: @valer_vasilev</a>
       </nav>
     </div>
     <p class="footer__copy">© 2026 Твой Magazine • Создано человеком и машинами, которые работают на людей</p>
   </footer>
 
-    <script src="assets/js/main.js?v=4"></script>
-  <script src="assets/js/portal.js?v=4Ы"></script>
+  <!-- ============ ГОЛОКАРТА КОНТАКТОВ ============ -->
+  <div class="holo-card" id="holoCard" role="dialog" aria-modal="true" aria-label="Контакты создателя" hidden>
+    <div class="holo-card__box">
+      <button class="holo-card__close" type="button" aria-label="Закрыть">✕</button>
+      <p class="holo-card__over">Канал связи • TVOYMAGAZINE</p>
+      <h2 class="holo-card__title">Valerij Vasiljev</h2>
+      <div class="holo-card__qr">
+        <canvas id="qrCanvas" width="220" height="220"></canvas>
+        <span class="holo-card__scanline" aria-hidden="true"></span>
+      </div>
+      <p class="holo-card__note">Наведи камеру — контакт сохранится в телефон</p>
+      <div class="holo-card__chips">
+        <button class="holo-chip" data-copy="email" type="button">email</button>
+        <button class="holo-chip" data-copy="telegram" type="button">telegram</button>
+      </div>
+      <div class="holo-card__links">
+        <a href="https://t.me/valer_vasilev" target="_blank" rel="noopener">Telegram</a>
+        <a href="mailto:valerij-vasiljev@list.ru">Письмо</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script src="assets/js/contacts.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/portal.js"></script>
 </body>
 </html>

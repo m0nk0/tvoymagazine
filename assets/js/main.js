@@ -74,16 +74,22 @@ const HERO_FREEZE_AT = 10;
 const video = document.getElementById('heroVideo');
 if (video && !reduced) {
   video.loop = false;
-  if (matchMedia('(pointer: fine)').matches) video.preload = 'auto';
+  // качаем буфер ещё ПОД прелоадером
+  if (matchMedia('(pointer: fine)').matches) {
+    video.preload = 'auto';
+    video.load(); // явная команда: начни качать сейчас
+  }
 
   let frozen = false, started = false, heroVisible = true;
   const play = () => { if (started && !frozen && heroVisible && !document.hidden) video.play().catch(() => {}); };
   const freeze = () => { frozen = true; video.pause(); };
 
-  const start = () => { if (started) return; started = true; play(); };
+  // старт ТОЛЬКО когда браузер готов сыграть всё без пауз
+  video.addEventListener('canplaythrough', () => { if (!started) { started = true; play(); } });
+
+  // на всякий случай: если canplaythrough не пришёл (очень медленная сеть) — старт через 4 сек
   onUniverseReady(() => {
-    if (matchMedia('(pointer: fine)').matches) start();
-    else addEventListener('touchstart', start, { once: true });
+    if (matchMedia('(pointer: fine)')) setTimeout(() => { if (!started) { started = true; play(); } }, 4000);
   });
 
   video.addEventListener('timeupdate', () => {
@@ -96,6 +102,7 @@ if (video && !reduced) {
     if (!started) return;
     heroVisible ? play() : video.pause();
   }, { threshold: 0.25 }).observe(video);
+  
   document.addEventListener('visibilitychange', () => {
     if (!started) return;
     document.hidden ? video.pause() : play();

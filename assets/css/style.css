@@ -412,3 +412,143 @@ section { position: relative; overflow: hidden; }
   .preloader__warp, .preloader__ring { display: none; }
   .preloader__text { opacity: 1; transform: none; animation: none; }
 }
+
+/* ============ КАПСУЛА-МАЯК И ГОЛОКАРТА ============ */
+.hero__signal {
+  position: relative;
+  z-index: 2;
+  margin-top: 18px;
+  padding: 12px 30px;
+  border-radius: 999px;
+  border: 1px solid rgba(111,227,255,.35);
+  background: rgba(5,11,20,.45);
+  color: var(--beam);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: box-shadow .3s, background .3s, transform .3s;
+}
+.hero__signal:hover,
+.hero__signal:focus-visible {
+  background: rgba(111,227,255,.08);
+  box-shadow: 0 0 28px rgba(111,227,255,.3);
+  transform: translateY(-2px);
+}
+.hero__signal-ring {
+  position: absolute; inset: -6px;
+  border-radius: 999px;
+  border: 1px solid rgba(111,227,255,.5);
+  animation: signalPulse 2.6s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes signalPulse {
+  0% { transform: scale(.9); opacity: .8; }
+  70%, 100% { transform: scale(1.25); opacity: 0; }
+}
+
+.holo-card {
+  position: fixed; inset: 0; z-index: 70;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  background: rgba(5,11,20,.72);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+.holo-card[hidden] { display: none; }
+.holo-card.is-open { opacity: 1; }
+.holo-card__box {
+  position: relative;
+  width: min(420px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 36px 32px 32px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(14,26,38,.92), rgba(5,11,20,.96));
+  border: 1px solid rgba(111,227,255,.35);
+  box-shadow: 0 0 60px rgba(111,227,255,.18), 0 30px 80px rgba(0,0,0,.6);
+  text-align: center;
+  transform: translateY(14px) scale(.97);
+  transition: transform .25s ease;
+}
+.holo-card.is-open .holo-card__box { transform: none; }
+.holo-card__close {
+  position: absolute; top: 12px; right: 12px;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(111,227,255,.3);
+  background: transparent;
+  color: var(--beam);
+  cursor: pointer;
+}
+.holo-card__over {
+  font-size: 10px; font-weight: 800; letter-spacing: .3em;
+  color: var(--beam); text-transform: uppercase;
+}
+.holo-card__title {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: 22px;
+}
+.holo-card__qr {
+  position: relative;
+  width: 220px; height: 220px;
+  margin: 22px auto 10px;
+  padding: 10px;
+  border-radius: 16px;
+  background: var(--pearl);
+  box-shadow: 0 0 30px rgba(111,227,255,.25);
+}
+.holo-card__qr canvas { display: block; width: 100%; height: 100%; border-radius: 8px; }
+.holo-card__scanline {
+  position: absolute; left: 6%; right: 6%; top: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--beam), transparent);
+  box-shadow: 0 0 10px var(--beam);
+  animation: holoSweep 3s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes holoSweep {
+  0%, 100% { top: 8%; opacity: .9; }
+  50% { top: 88%; opacity: .5; }
+}
+.holo-card__note { color: var(--text-dim); font-size: 12px; }
+.holo-card__chips {
+  display: flex; flex-direction: column; gap: 10px;
+  margin-top: 16px;
+}
+.holo-chip {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(111,227,255,.3);
+  background: rgba(111,227,255,.06);
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background .3s, border-color .3s, color .3s;
+}
+.holo-chip:hover { background: rgba(111,227,255,.12); }
+.holo-chip.is-copied {
+  border-color: var(--world-lifelens);
+  color: var(--world-lifelens);
+}
+.holo-chip.is-copied::after { content: ' ✓ скопировано'; }
+.holo-card__links {
+  display: flex; justify-content: center; gap: 22px;
+  margin-top: 16px;
+}
+.holo-card__links a {
+  color: var(--beam);
+  font-size: 13px; font-weight: 700; letter-spacing: .08em;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(111,227,255,.35);
+  padding-bottom: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__signal-ring, .holo-card__scanline { display: none; }
+  .holo-card, .holo-card__box { transition: none; }
+}
