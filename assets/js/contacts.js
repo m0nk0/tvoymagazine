@@ -24,11 +24,9 @@ const CONTACTS = {
     chip.textContent = CONTACTS[chip.dataset.copy];
   });
 
+    // подписи живут в HTML, адреса приходят из конфига
   const links = card.querySelectorAll('.holo-card__links a');
-  if (links[0]) {
-    links[0].href = CONTACTS.telegramUrl;
-    links[0].textContent = CONTACTS.telegram;
-  }
+  if (links[0]) links[0].href = CONTACTS.telegramUrl;
   if (links[1]) links[1].href = 'mailto:' + CONTACTS.email;
 
   // копирование с вспышкой «скопировано»
