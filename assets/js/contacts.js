@@ -1,7 +1,7 @@
 // Канал связи: конфиг контактов, капсула-маяк, голографическая карта
 // QR лежит статичным файлом assets/img/qr-contacts.png — никаких CDN
 const CONTACTS = {
-  name: 'Valerij Vasiljev',
+  name: 'Valeri Vasilev',
   email: 'valerij-vasiljev@list.ru',
   telegram: '@valer_vasilev',
   telegramUrl: 'https://t.me/valer_vasilev',
@@ -17,9 +17,7 @@ const CONTACTS = {
   const closeBtn = card.querySelector('.holo-card__close');
 
   // карта наполняется из конфига — единый источник правды
-  const title = card.querySelector('.holo-card__title');
-  if (title) title.textContent = CONTACTS.name;
-
+  
   card.querySelectorAll('[data-copy]').forEach((chip) => {
     chip.textContent = CONTACTS[chip.dataset.copy];
   });
