@@ -1,12 +1,23 @@
-// Вселенная онлайн: прелоадер v2 (warp + портал), hero-видео, звёзды,
-// искры манифеста, reveal, автоплей видео в окнах по видимости
+// Вселенная онлайн: прелоадер v2 (warp + портал), hero-видео с акцент-паузой,
+// звёзды, искры манифеста, reveal, автоплей видео в окнах по видимости
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ===== ФЛАГ ГОТОВНОСТИ: прелоадер растворился =====
+let universeReady = false;
+const readyFns = [];
+const onUniverseReady = (fn) => { if (universeReady) fn(); else readyFns.push(fn); };
+const signalUniverseReady = () => {
+  if (universeReady) return;
+  universeReady = true;
+  readyFns.forEach((f) => f());
+};
 
 // ===== PRELOADER v2: WARP-ПОЛЁТ + КОЛЬЦО-ПОРТАЛ =====
 const pre = document.getElementById('preloader');
 if (pre) {
   if (sessionStorage.getItem('universeSeen')) {
     pre.remove();
+    signalUniverseReady();
   } else {
     pre.classList.add('is-warp');
 
@@ -51,32 +62,44 @@ if (pre) {
     const hide = () => {
       pre.classList.add('is-hidden');
       sessionStorage.setItem('universeSeen', '1');
+      signalUniverseReady();
     };
     window.addEventListener('load', () => setTimeout(hide, 3200));
     setTimeout(hide, 6500);
   }
 }
 
-// ===== HERO-ВИДЕО: один проход → заморозка навсегда =====
-const HERO_FREEZE_AT = 10; // секунда остановки; null = доиграть до конца и встать на последнем кадре
+// ===== HERO-ВИДЕО: старт после прелоадера + акцент-пауза на фигуре + заморозка =====
+const HERO_HOLD_AT   = 3;    // секунда видео с фигурой создателя — держим акцент
+const HERO_HOLD_MS   = 3000; // длительность акцент-паузы
+const HERO_FREEZE_AT = 10;   // финальная заморозка навсегда
 const video = document.getElementById('heroVideo');
 if (video && !reduced) {
   video.loop = false;
-  let frozen = false;
-  const play = () => { if (!frozen) video.play().catch(() => {}); };
+  let frozen = false, holding = false, started = false, heroVisible = true;
+  const play = () => { if (!frozen && !holding && heroVisible && !document.hidden) video.play().catch(() => {}); };
   const freeze = () => { frozen = true; video.pause(); };
 
-  if (matchMedia('(pointer: fine)').matches) play();
-  else addEventListener('touchstart', play, { once: true });
+  const start = () => { if (started) return; started = true; play(); };
+  onUniverseReady(() => {
+    if (matchMedia('(pointer: fine)').matches) start();
+    else addEventListener('touchstart', start, { once: true });
+  });
 
   video.addEventListener('timeupdate', () => {
+    if (!holding && HERO_HOLD_AT !== null && video.currentTime >= HERO_HOLD_AT) {
+      holding = true;
+      video.pause();
+      setTimeout(() => { holding = false; play(); }, HERO_HOLD_MS);
+      return;
+    }
     if (HERO_FREEZE_AT !== null && video.currentTime >= HERO_FREEZE_AT) freeze();
   });
   video.addEventListener('ended', freeze);
 
-  // не жжём CPU вне кадра и в фоновой вкладке
   new IntersectionObserver((es) => {
-    es[0].isIntersecting ? play() : video.pause();
+    heroVisible = es[0].isIntersecting;
+    heroVisible ? play() : video.pause();
   }, { threshold: 0.25 }).observe(video);
   document.addEventListener('visibilitychange', () => {
     document.hidden ? video.pause() : play();
