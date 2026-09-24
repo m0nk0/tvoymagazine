@@ -21,7 +21,8 @@
     linear-gradient(180deg, rgba(5,11,20,.82), rgba(5,11,20,.55) 45%, rgba(5,11,20,.94)),
     radial-gradient(70% 55% at 50% 45%, var(--accent-soft), transparent 75%);
 }
-.world-hero > *:not(.world-hero__bg):not(.world-hero__veil) {
+/* все дети hero в потоке, кроме фона, вуали и ссылки возврата */
+.world-hero > *:not(.world-hero__bg):not(.world-hero__veil):not(.world-back) {
   position: relative; z-index: 2;
 }
 .world-back {
@@ -159,15 +160,3 @@
   letter-spacing: .12em;
   text-transform: uppercase;
 }
-/* ссылка возврата — в угол, поверх старых правил */
-.world-back {
-  position: absolute;
-  top: 26px; left: 28px;
-  z-index: 3;
-  color: var(--text-dim);
-  font-size: 13px;
-  letter-spacing: .08em;
-  text-decoration: none;
-  transition: color .3s;
-}
-.world-back:hover { color: var(--text); }
