@@ -432,7 +432,7 @@ section { position: relative; overflow: hidden; }
 .hero__signal {
   position: relative;
   z-index: 2;
-  margin-top: 18px;
+  margin-top: 46px;
   width: 84px;
   height: 84px;
   border-radius: 50%;
@@ -465,7 +465,7 @@ section { position: relative; overflow: hidden; }
 .hero__signal::after {
   content: 'Связаться с создателем';
   position: absolute;
-  bottom: calc(100% + 12px);
+  top: calc(100% + 14px);
   left: 50%;
   transform: translateX(-50%);
   padding: 8px 14px;
