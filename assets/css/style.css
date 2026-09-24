@@ -288,6 +288,8 @@ section { position: relative; overflow: hidden; }
 }
 .world-card--nails    { --accent: #E91E63; --accent-soft: rgba(231,30,99,.35); }
 .world-card--lifelens { --accent: #17E8B8; --accent-soft: rgba(23,232,184,.35); }
+.world-card--weather  { --accent: #5EA8FF; --accent-soft: rgba(94,168,255,.35); }
+.world-card--food     { --accent: #FFC24B; --accent-soft: rgba(255,194,75,.35); }
 
 .world-card:hover,
 .world-card:focus-visible {
@@ -306,6 +308,12 @@ section { position: relative; overflow: hidden; }
   margin: 20px 0 16px;
   border-radius: 24px;
   box-shadow: 0 0 32px var(--accent-soft);
+}
+.world-card__glyph {
+  font-size: 64px;
+  line-height: 1;
+  margin: 20px 0 16px;
+  filter: drop-shadow(0 0 18px var(--accent-soft));
 }
 .world-card__name {
   font-family: var(--font-display);
@@ -348,6 +356,49 @@ section { position: relative; overflow: hidden; }
   opacity: 1;
   transform: none;
 }
+
+/* скан-линия по карточке: язык HUD, но в цвете мира */
+.world-card__scan {
+  position: absolute; left: 8%; right: 8%; top: -6%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: 0 0 12px var(--accent-soft);
+  opacity: .25;
+  animation: cardScan 7s linear infinite;
+  pointer-events: none;
+}
+@keyframes cardScan { 0% { top: -6%; } 100% { top: 106%; } }
+
+/* маяк статуса в углу карточки */
+.world-card__status {
+  position: absolute; top: 14px; right: 16px;
+  display: flex; align-items: center; gap: 7px;
+  font-size: 9px; font-weight: 800; letter-spacing: .22em;
+  color: var(--accent);
+  opacity: .85;
+}
+.world-card__status i {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent);
+  animation: statusPulse 2.2s ease-out infinite;
+}
+@keyframes statusPulse {
+  0% { box-shadow: 0 0 0 0 var(--accent-soft); }
+  70%, 100% { box-shadow: 0 0 0 9px transparent; }
+}
+
+/* миры в ковке: тихие, не кликаются, маяк не пульсирует */
+.world-card--dev { cursor: default; }
+.world-card--dev:hover,
+.world-card--dev:focus-visible {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--accent-soft);
+}
+.world-card--dev .world-card__status { opacity: .55; }
+.world-card--dev .world-card__status i { animation: none; box-shadow: none; opacity: .6; }
+.worlds__grid--dev { margin-top: 28px; }
+.worlds__grid--dev .world-card { padding-bottom: 40px; }
 
 /* ============ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ============ */
 .reveal {
@@ -461,7 +512,7 @@ section { position: relative; overflow: hidden; }
   animation: signalPulse 2.6s ease-out infinite;
   pointer-events: none;
 }
-/* тултип при наведении */
+/* тултип при наведении — снизу, чтобы не kryть «Войти в город» */
 .hero__signal::after {
   content: 'Связаться с создателем';
   position: absolute;
@@ -811,6 +862,19 @@ section { position: relative; overflow: hidden; }
   .hud__forge { right: 5%; bottom: 8%; width: 46vw; }
 }
 
+/* ============ ССЫЛКА ВОЗВРАТА НА СТРАНИЦАХ МИРОВ ============ */
+.hero__back, .back-link, .world-back {
+  position: absolute;
+  top: 26px; left: 28px;
+  z-index: 3;
+  color: var(--text-dim);
+  font-size: 13px;
+  letter-spacing: .08em;
+  text-decoration: none;
+  transition: color .3s;
+}
+.hero__back:hover, .back-link:hover, .world-back:hover { color: var(--text); }
+
 /* ============ УВАЖЕНИЕ К ВЕСТИБУЛЯРУ ============ */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -825,5 +889,7 @@ section { position: relative; overflow: hidden; }
   .hud__scan, .hud__radar i, .hud__bar-track::after { animation: none; }
   .hud__gate { display: none; }
   .hud { transition: none; }
-    .hero.is-playing .hero__over, .hero.is-playing .hero__title, .hero.is-playing .hero__sub { animation: none; }
+  .hero.is-playing .hero__over, .hero.is-playing .hero__title, .hero.is-playing .hero__sub { animation: none; }
+  .world-card__scan { display: none; }
+  .world-card__status i { animation: none; }
 }
