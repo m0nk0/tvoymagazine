@@ -50,11 +50,11 @@
         <span class="hud__gate hud__gate--b"></span>
         <span class="hud__radar"><i></i></span>
         <div class="hud__forge">
-          <div class="hud__bar">
+          <div class="hud__bar" data-base="64">
             <span class="hud__bar-head"><span>МИР 03 • СОЗДАЕТСЯ</span><b>64%</b></span>
             <span class="hud__bar-track"><i style="width:64%"></i></span>
           </div>
-          <div class="hud__bar">
+          <div class="hud__bar" data-base="31">
             <span class="hud__bar-head"><span>МИР 04 • СОЗДАЕТСЯ</span><b>31%</b></span>
             <span class="hud__bar-track"><i style="width:31%"></i></span>
           </div>
@@ -87,21 +87,21 @@
             <span class="manifest__num">01</span>
             <div>
               <h3>Камера — интерфейс</h3>
-              <p>Мир начинается с кадра: палец, лицо, жест — вход в цифровое</p>
+              <p>Мир начинается с кадра: палец, лицо, предметы — вход в цифровое пространство</p>
             </div>
           </li>
           <li class="manifest__item reveal">
             <span class="manifest__num">02</span>
             <div>
               <h3>AI — переводчик</h3>
-              <p>Машины читают невидимое и переводят это в образы</p>
+              <p>Машины читают невидимое и переводят это в понятные образы</p>
             </div>
           </li>
           <li class="manifest__item reveal">
             <span class="manifest__num">03</span>
             <div>
               <h3>Результат — магия</h3>
-              <p>Человек видит себя заново — и это меняет решения</p>
+              <p>Человек видит мир и себя заново — и это меняет решения</p>
             </div>
           </li>
         </ul>
@@ -123,7 +123,7 @@
             <span class="world-card__scan" aria-hidden="true"></span>
             <span class="world-card__status"><i></i>ПОРТАЛ АКТИВЕН</span>
             <span class="world-card__num">МИР 1</span>
-            <img class="world-card__icon" src="assets/img/worlds/nogotochki-icon.png" alt="Твои Ноготочки">
+            <img class="world-card__icon" src="assets/img/worlds/nogotochki-icon.png" alt="Твоя Красота">
             <h3 class="world-card__name">Твоя Красота</h3>
             <p class="world-card__tag">Цифровая арт-студия для nail-мастеров</p>
             <span class="world-card__portal" aria-hidden="true"></span>
@@ -135,7 +135,7 @@
             <span class="world-card__scan" aria-hidden="true"></span>
             <span class="world-card__status"><i></i>ПОРТАЛ АКТИВЕН</span>
             <span class="world-card__num">МИР 2</span>
-            <img class="world-card__icon" src="assets/img/worlds/lifelens-icon.png" alt="LifeLens AI">
+            <img class="world-card__icon" src="assets/img/worlds/lifelens-icon.png" alt="Твоя Жизнь">
             <h3 class="world-card__name">Твоя Жизнь</h3>
             <p class="world-card__tag">ИИ сканер биологического возраста</p>
             <span class="world-card__portal" aria-hidden="true"></span>
@@ -146,7 +146,7 @@
         <div class="worlds__grid worlds__grid--dev">
           <article class="world-card world-card--weather world-card--dev reveal">
             <span class="world-card__scan" aria-hidden="true"></span>
-            <span class="world-card__status"><i></i>В КОВКЕ</span>
+            <span class="world-card__status"><i></i>В РАЗРАБОТКЕ</span>
             <span class="world-card__num">МИР В РАЗРАБОТКЕ</span>
             <span class="world-card__glyph" aria-hidden="true">🌦</span>
             <h3 class="world-card__name">Твоя Погода</h3>
@@ -155,14 +155,13 @@
 
           <article class="world-card world-card--food world-card--dev reveal">
             <span class="world-card__scan" aria-hidden="true"></span>
-            <span class="world-card__status"><i></i>В КОВКЕ</span>
+            <span class="world-card__status"><i></i>В РАЗРАБОТКЕ</span>
             <span class="world-card__num">МИР В РАЗРАБОТКЕ</span>
             <span class="world-card__glyph" aria-hidden="true">🥗</span>
             <h3 class="world-card__name">Твоя Еда</h3>
             <p class="world-card__tag">ИИ сканер пищи и диетолог</p>
           </article>
         </div>
-
       </div>
     </section>
   </main>
@@ -176,8 +175,8 @@
       </div>
       <nav class="footer__col" aria-label="Миры">
         <p class="footer__head">Миры</p>
-        <a href="apps/nogotochki/">Твои Ноготочки</a>
-        <a href="apps/lifelens/">LifeLens AI</a>
+        <a href="apps/nogotochki/">Твоя Красота</a>
+        <a href="apps/lifelens/">Твоя Жизнь/a>
       </nav>
       <nav class="footer__col" aria-label="Разделы">
         <p class="footer__head">Вселенная</p>

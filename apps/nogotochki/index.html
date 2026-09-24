@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="../../assets/css/style.css?v=4">
   <link rel="stylesheet" href="../../assets/css/world.css">
   <style>
-    body { --accent: #E91E63; --accent-soft: rgba(231,30,99,.35); }
+    body { --accent: #E91E63; --accent-soft: rgba(231,30,99,.35); --hud-bright: #FFDDE8; }
     .world-hero__bg {
       background-image:
         url('../../assets/img/worlds/nogotochki/nogotochki-interior.jpg'),
@@ -40,7 +40,31 @@
     <section class="world-hero">
       <div class="world-hero__bg" aria-hidden="true"></div>
       <div class="world-hero__veil" aria-hidden="true"></div>
-      <a class="world-back" href="../../">← Город миров</a>
+
+      <!-- HUD Мира 1: розовая телеметрия примерки -->
+      <div class="hud" aria-hidden="true">
+        <span class="hud__corner hud__corner--tl"></span>
+        <span class="hud__corner hud__corner--tr"></span>
+        <span class="hud__corner hud__corner--bl"></span>
+        <span class="hud__corner hud__corner--br"></span>
+        <p class="hud__tag hud__tag--tl">МИР 1 • BEAUTY-TEX</p>
+        <p class="hud__tag hud__tag--tr">LAYER ENGINE • ACTIVE</p>
+        <p class="hud__tag hud__tag--br" id="hudScanTag">SCAN 00.0%</p>
+        <span class="hud__scan"></span>
+        <span class="hud__radar"><i></i></span>
+        <div class="hud__forge">
+          <div class="hud__bar" data-base="88">
+            <span class="hud__bar-head"><span>EXAMPLE ENGINE</span><b>88%</b></span>
+            <span class="hud__bar-track"><i style="width:88%"></i></span>
+          </div>
+          <div class="hud__bar" data-base="76">
+            <span class="hud__bar-head"><span>PALETTE SYNC</span><b>76%</b></span>
+            <span class="hud__bar-track"><i style="width:76%"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <a class="world-back" href="../../">← Вселенная</a>
 
       <span class="world-num">Мир 1 • Beauty-тех</span>
       <h1 class="world-title">Твои Ноготочки</h1>
@@ -86,7 +110,7 @@
       <img src="../../assets/img/worlds/nogotochki/screen4.jpg" alt="Палитры цветов" loading="lazy">
     </section>
 
-     <p class="world-soon">Хроники создания мира — скоро</p>
+    <p class="world-soon">Хроники создания мира — скоро</p>
   </main>
 
   <footer class="footer">
@@ -114,7 +138,7 @@
     <p class="footer__copy">© 2026 Твой Magazine • Создано человеком и машинами, которые работают на людей</p>
   </footer>
 
-    <script src="../../assets/js/main.js?v=4"></script>
+  <script src="../../assets/js/main.js?v=4"></script>
   <script src="../../assets/js/portal.js?v=4"></script>
 </body>
 </html>

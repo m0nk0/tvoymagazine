@@ -1,5 +1,5 @@
 // Вселенная онлайн: прелоадер v2 (warp + портал), hero-видео со стартом после
-// прелоадера и рождением кнопок из портала, звёзды, искры, reveal, автоплей окон
+// прелоадера и рождением кнопок из портала, HUD-телеметрия, звёзды, искры, reveal
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ===== ФЛАГ ГОТОВНОСТИ: прелоадер растворился =====
@@ -130,7 +130,7 @@ if (hud && !reduced) {
   const fills = [...hud.querySelectorAll('.hud__bar-track i')];
   const vals = [...hud.querySelectorAll('.hud__bar-head b')];
   const gates = [...hud.querySelectorAll('.hud__gate')];
-  const base = [64, 31];
+  const base = bars.map((b) => Number(b.dataset.base || 50));
   const cur = [...base];
   let scan = 0, hudTimer = null, gateTimer = null, gateIdx = 0, hudVisible = false;
 
@@ -166,7 +166,7 @@ if (hud && !reduced) {
     const run = hudVisible && !document.hidden;
     if (run && !hudTimer) { tick(); hudTimer = setInterval(tick, 450); }
     if (!run && hudTimer) { clearInterval(hudTimer); hudTimer = null; }
-    if (run && !gateTimer) gateTimer = setInterval(gateTick, 6000);
+    if (run && !gateTimer && gates.length) gateTimer = setInterval(gateTick, 6000);
     if (!run && gateTimer) { clearInterval(gateTimer); gateTimer = null; }
   };
   new IntersectionObserver((es) => {
@@ -176,6 +176,7 @@ if (hud && !reduced) {
   }, { threshold: 0.2 }).observe(hud);
   document.addEventListener('visibilitychange', sync);
 }
+
 // ===== ЗВЁЗДЫ С ПАРАЛЛАКСОМ =====
 const canvas = document.getElementById('stars');
 if (canvas && !reduced) {
@@ -232,7 +233,7 @@ if (spark && !reduced) {
       y: spark.height * 0.35 + Math.random() * spark.height * 0.65,
       v: 0.3 + Math.random() * 0.9,
       r: 0.6 + Math.random() * 1.6,
-      a: 0.12 + Math.random() * 0.38,
+      a: 0.08 + Math.random() * 0.3,
       f: Math.random() * Math.PI * 2,
     }));
   };
@@ -244,7 +245,7 @@ if (spark && !reduced) {
       p.y -= p.v;
       p.f += 0.05;
       if (p.y < -10) { p.y = spark.height + 10; p.x = randX(); }
-      sctx.globalAlpha = p.a * (0.8 + 0.2 * Math.sin(p.f));
+      sctx.globalAlpha = p.a * (0.6 + 0.4 * Math.sin(p.f));
       sctx.fillStyle = '#9FE8FF';
       sctx.beginPath();
       sctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);

@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="../../assets/css/style.css?v=4">
   <link rel="stylesheet" href="../../assets/css/world.css">
   <style>
-    body { --accent: #17E8B8; --accent-soft: rgba(23,232,184,.35); }
+    body { --accent: #17E8B8; --accent-soft: rgba(23,232,184,.35); --hud-bright: #D8FFF4; }
     .world-hero__bg {
       background-image:
         url('../../assets/img/worlds/lifelens/lifelens-interior.jpg'),
@@ -40,7 +40,31 @@
     <section class="world-hero">
       <div class="world-hero__bg" aria-hidden="true"></div>
       <div class="world-hero__veil" aria-hidden="true"></div>
-      <a class="world-back" href="../../">← Город миров</a>
+
+      <!-- HUD Мира 2: бирюзовая телеметрия биоскана -->
+      <div class="hud" aria-hidden="true">
+        <span class="hud__corner hud__corner--tl"></span>
+        <span class="hud__corner hud__corner--tr"></span>
+        <span class="hud__corner hud__corner--bl"></span>
+        <span class="hud__corner hud__corner--br"></span>
+        <p class="hud__tag hud__tag--tl">МИР 2 • HEALTH-TEX</p>
+        <p class="hud__tag hud__tag--tr">BIO-MODEL • CALIBRATED</p>
+        <p class="hud__tag hud__tag--br" id="hudScanTag">SCAN 00.0%</p>
+        <span class="hud__scan"></span>
+        <span class="hud__radar"><i></i></span>
+        <div class="hud__forge">
+          <div class="hud__bar" data-base="94">
+            <span class="hud__bar-head"><span>CALIBRATION</span><b>94%</b></span>
+            <span class="hud__bar-track"><i style="width:94%"></i></span>
+          </div>
+          <div class="hud__bar" data-base="87">
+            <span class="hud__bar-head"><span>EPIGENETIC CLOCK</span><b>87%</b></span>
+            <span class="hud__bar-track"><i style="width:87%"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <a class="world-back" href="../../">← Вселенная</a>
 
       <span class="world-num">Мир 2 • Health-тех</span>
       <h1 class="world-title">LifeLens AI</h1>
@@ -115,7 +139,7 @@
     <p class="footer__copy">© 2026 Твой Magazine • Создано человеком и машинами, которые работают на людей</p>
   </footer>
 
-   <script src="../../assets/js/main.js?v=4"></script>
+  <script src="../../assets/js/main.js?v=4"></script>
   <script src="../../assets/js/portal.js?v=4"></script>
 </body>
 </html>

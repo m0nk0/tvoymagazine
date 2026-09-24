@@ -160,3 +160,19 @@
   letter-spacing: .12em;
   text-transform: uppercase;
 }
+
+/* ============ HUD СТРАНИЦЫ МИРА: ЦВЕТ МИРА, СВОЯ ТЕЛЕМЕТРИЯ ============ */
+.world-hero .hud {
+  --hud: var(--accent);
+  --hud-soft: var(--accent-soft);
+  opacity: 1;
+  animation: hudFadeIn 1.4s ease 3.4s both; /* проступает следом за прелоадером */
+}
+@keyframes hudFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .world-hero .hud { animation: none; opacity: 1; }
+  .world-hero .hud__scan,
+  .world-hero .hud__radar i,
+  .world-hero .hud__bar-track::after { animation: none; }
+}
