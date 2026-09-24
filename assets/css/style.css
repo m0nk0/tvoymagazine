@@ -599,7 +599,7 @@ section { position: relative; overflow: hidden; }
   position: absolute; inset: -18%;
   border-radius: 50%;
   background: radial-gradient(50% 50% at 50% 50%,
-    rgba(255,255,255,.7), rgba(111,227,255,.3) 45%, transparent 72%);
+    rgba(255,255,255,.8), rgba(111,227,255,.3) 45%, transparent 72%);
   filter: blur(6px);
 }
 /* до заморозки ролика кнопок не видно, но место под них занято — макет не прыгает */
