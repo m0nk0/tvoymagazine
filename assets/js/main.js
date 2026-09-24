@@ -1,5 +1,5 @@
-// Вселенная онлайн: прелоадер v2 (warp + портал), hero-видео с акцент-паузой,
-// звёзды, искры манифеста, reveal, автоплей видео в окнах по видимости
+// Вселенная онлайн: прелоадер v2 (warp + портал), hero-видео со стартом после
+// прелоадера и рождением кнопок из портала, звёзды, искры, reveal, автоплей окон
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ===== ФЛАГ ГОТОВНОСТИ: прелоадер растворился =====
@@ -69,8 +69,8 @@ if (pre) {
   }
 }
 
-// ===== HERO-ВИДЕО: старт строго с нуля, после прелоадера И с готовым буфером =====
-const HERO_FREEZE_AT = 10;
+// ===== HERO-ВИДЕО: буфер греется под прелоадером, старт строго после него =====
+const HERO_FREEZE_AT = 10; // заморозка навсегда; null = доиграть до конца
 const video = document.getElementById('heroVideo');
 if (video && !reduced) {
   video.loop = false;
@@ -79,33 +79,26 @@ if (video && !reduced) {
     video.load();
   }
 
+  const heroEl = document.querySelector('.hero');
+  const revealActions = () => { if (heroEl) heroEl.classList.add('is-ready'); };
+
   let frozen = false, started = false, heroVisible = true;
-  let bufferReady = false, universeUp = false;
   const play = () => { if (started && !frozen && heroVisible && !document.hidden) video.play().catch(() => {}); };
-  const freeze = () => { frozen = true; video.pause(); };
+  const freeze = () => { frozen = true; video.pause(); revealActions(); };
   const start = () => {
     if (started) return;
     started = true;
-    video.currentTime = 0; // страховка: старт строго с нуля
+    video.currentTime = 0; // старт строго с первой секунды
     play();
   };
-  const tryStart = () => { if (bufferReady && universeUp) start(); };
 
-  // флаг 1: буфер готов
-  video.addEventListener('canplaythrough', () => { bufferReady = true; tryStart(); });
-  // флаг 2: прелоадер растворился
   onUniverseReady(() => {
-    universeUp = true;
-    if (matchMedia('(pointer: fine)').matches) {
-      tryStart();
-      setTimeout(() => { if (!started) start(); }, 4000); // медленная сеть
-    } else {
-      addEventListener('touchstart', start, { once: true });
-    }
+    if (matchMedia('(pointer: fine)').matches) start();
+    else addEventListener('touchstart', start, { once: true });
   });
 
   video.addEventListener('timeupdate', () => {
-    if (!frozen && video.currentTime >= HERO_FREEZE_AT) freeze();
+    if (!frozen && HERO_FREEZE_AT !== null && video.currentTime >= HERO_FREEZE_AT) freeze();
   });
   video.addEventListener('ended', freeze);
 
@@ -118,6 +111,51 @@ if (video && !reduced) {
     if (!started) return;
     document.hidden ? video.pause() : play();
   });
+
+  setTimeout(revealActions, 12000); // страховка: кнопки появятся, даже если видео не смогло играть
+}
+
+// вестибулярный режим: кнопки видны сразу, без портала
+if (reduced) {
+  const h = document.querySelector('.hero');
+  if (h) h.classList.add('is-ready');
+}
+
+// ===== ЗВЁЗДЫ С ПАРАЛЛАКСОМ =====
+const canvas = document.getElementById('stars');
+if (canvas && !reduced) {
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  const make = () => {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+    const n = Math.round(innerWidth * innerHeight / 9000);
+    stars = Array.from({ length: n }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.4 + 0.3,
+      a: Math.random() * 0.5 + 0.15,
+      p: Math.random() * 0.35 + 0.05,
+    }));
+  };
+  make();
+  addEventListener('resize', make);
+  let sy = scrollY;
+  addEventListener('scroll', () => { sy = scrollY; }, { passive: true });
+  const draw = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#BFE9FF';
+    for (const s of stars) {
+      let y = (s.y - sy * s.p) % canvas.height;
+      if (y < 0) y += canvas.height;
+      ctx.globalAlpha = s.a;
+      ctx.beginPath();
+      ctx.arc(s.x, y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  };
+  draw();
 }
 
 // ===== ИСКРЫ МАНИФЕСТА =====
