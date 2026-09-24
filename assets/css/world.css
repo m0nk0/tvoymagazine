@@ -159,3 +159,15 @@
   letter-spacing: .12em;
   text-transform: uppercase;
 }
+/* ссылка возврата — в угол, поверх старых правил */
+.world-back {
+  position: absolute;
+  top: 26px; left: 28px;
+  z-index: 3;
+  color: var(--text-dim);
+  font-size: 13px;
+  letter-spacing: .08em;
+  text-decoration: none;
+  transition: color .3s;
+}
+.world-back:hover { color: var(--text); }

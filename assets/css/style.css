@@ -310,7 +310,9 @@ section { position: relative; overflow: hidden; }
   box-shadow: 0 0 32px var(--accent-soft);
 }
 .world-card__glyph {
-  font-size: 64px;
+  width: 96px; height: 96px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 56px;
   line-height: 1;
   margin: 20px 0 16px;
   filter: drop-shadow(0 0 18px var(--accent-soft));
@@ -398,7 +400,7 @@ section { position: relative; overflow: hidden; }
 .world-card--dev .world-card__status { opacity: .55; }
 .world-card--dev .world-card__status i { animation: none; box-shadow: none; opacity: .6; }
 .worlds__grid--dev { margin-top: 28px; }
-.worlds__grid--dev .world-card { padding-bottom: 40px; }
+.worlds__grid--dev .world-card { padding-bottom: 84px; }
 
 /* ============ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ============ */
 .reveal {
