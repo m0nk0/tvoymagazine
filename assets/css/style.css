@@ -629,6 +629,148 @@ section { position: relative; overflow: hidden; }
   60%  { opacity: 1; transform: scale(1.08); }
 }
 
+/* ============ HUD: ПРИБОРЫ ВСЕЛЕННОЙ ============ */
+.hud {
+  position: absolute; inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease .8s;
+  --hud: var(--beam);
+  --hud-soft: rgba(111,227,255,.35);
+}
+.hero.is-ready .hud { opacity: 1; }
+.hud.is-paused * { animation-play-state: paused !important; }
+
+.hud__corner {
+  position: absolute;
+  width: 46px; height: 46px;
+  border: 1px solid var(--hud);
+  opacity: .35;
+}
+.hud__corner--tl { left: 22px; top: 22px; border-right: 0; border-bottom: 0; }
+.hud__corner--tr { right: 22px; top: 22px; border-left: 0; border-bottom: 0; }
+.hud__corner--bl { left: 22px; bottom: 22px; border-right: 0; border-top: 0; }
+.hud__corner--br { right: 22px; bottom: 22px; border-left: 0; border-top: 0; }
+
+.hud__tag {
+  position: absolute;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--hud);
+  opacity: .45;
+}
+.hud__tag--tl { left: 80px; top: 32px; }
+.hud__tag--tr { right: 80px; top: 32px; }
+.hud__tag--br { right: 80px; bottom: 32px; font-variant-numeric: tabular-nums; }
+
+.hud__scan {
+  position: absolute; left: 0; right: 0; top: -4%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--hud) 30%, var(--hud) 70%, transparent);
+  box-shadow: 0 0 18px var(--hud);
+  opacity: .16;
+  animation: hudScan 9s linear infinite;
+}
+@keyframes hudScan { 0% { top: -4%; } 100% { top: 104%; } }
+
+.hud__reticle {
+  position: absolute;
+  width: 84px; height: 84px;
+  border-radius: 50%;
+  border: 1px dashed var(--hud);
+  opacity: .3;
+  animation: hudSpin 16s linear infinite;
+}
+.hud__reticle::before {
+  content: '';
+  position: absolute; inset: 12px;
+  border-radius: 50%;
+  border: 1px solid var(--hud);
+  opacity: .6;
+}
+.hud__reticle::after {
+  content: '';
+  position: absolute; left: 50%; top: 50%;
+  width: 6px; height: 6px; margin: -3px;
+  border-radius: 50%;
+  background: var(--hud);
+  box-shadow: 0 0 10px var(--hud);
+}
+.hud__reticle--a { left: 20%; top: 56%; }
+.hud__reticle--b {
+  right: 16%; top: 34%;
+  width: 56px; height: 56px;
+  animation-direction: reverse;
+  animation-duration: 12s;
+}
+@keyframes hudSpin { to { transform: rotate(360deg); } }
+
+.hud__radar {
+  position: absolute;
+  left: 6%; bottom: 12%;
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  border: 1px solid var(--hud);
+  opacity: .28;
+  overflow: hidden;
+}
+.hud__radar::before {
+  content: '';
+  position: absolute; inset: 22%;
+  border-radius: 50%;
+  border: 1px solid var(--hud);
+  opacity: .7;
+}
+.hud__radar i {
+  position: absolute; inset: 0;
+  background: conic-gradient(from 0deg, transparent 0 76%, var(--hud-soft) 92%, transparent 100%);
+  animation: hudSpin 4.5s linear infinite;
+}
+
+.hud__forge {
+  position: absolute;
+  right: 6%; bottom: 12%;
+  width: min(240px, 34vw);
+  display: flex; flex-direction: column; gap: 12px;
+  opacity: .5;
+}
+.hud__bar { display: flex; flex-direction: column; gap: 5px; }
+.hud__bar-head {
+  display: flex; justify-content: space-between;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .26em; text-transform: uppercase;
+  color: var(--hud);
+  font-variant-numeric: tabular-nums;
+}
+.hud__bar-track {
+  position: relative;
+  height: 3px;
+  background: rgba(255,255,255,.08);
+  overflow: hidden;
+}
+.hud__bar-track i {
+  position: absolute; top: 0; bottom: 0; left: 0;
+  background: linear-gradient(90deg, transparent, var(--hud));
+  box-shadow: 0 0 8px var(--hud-soft);
+  transition: width .9s ease;
+}
+.hud__bar-track::after {
+  content: '';
+  position: absolute; top: 0; bottom: 0; left: -30%;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
+  animation: hudShimmer 2.8s ease-in-out infinite;
+}
+@keyframes hudShimmer { to { left: 130%; } }
+
+@media (max-width: 640px) {
+  .hud__radar, .hud__reticle--b, .hud__tag--tr { display: none; }
+  .hud__forge { right: 5%; bottom: 8%; width: 46vw; }
+}
+
 /* ============ УВАЖЕНИЕ К ВЕСТИБУЛЯРУ ============ */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -640,4 +782,6 @@ section { position: relative; overflow: hidden; }
   .holo-card, .holo-card__box { transition: none; }
   .hero__cta, .hero__signal { opacity: 1; transform: none; pointer-events: auto; animation: none; }
   .hero__portal { display: none; }
+    .hud__scan, .hud__reticle, .hud__radar i, .hud__bar-track::after { animation: none; }
+  .hud { transition: none; }
 }

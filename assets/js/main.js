@@ -121,6 +121,37 @@ if (reduced) {
   if (h) h.classList.add('is-ready');
 }
 
+// ===== HUD: ЖИВАЯ ТЕЛЕМЕТРИЯ (тик раз в секунду, пауза вне кадра) =====
+const hud = document.querySelector('.hud');
+if (hud && !reduced) {
+  const scanTag = document.getElementById('hudScanTag');
+  const fills = [...hud.querySelectorAll('.hud__bar-track i')];
+  const vals = [...hud.querySelectorAll('.hud__bar-head b')];
+  const base = [64, 31];
+  let scan = 0, hudTimer = null, hudVisible = false;
+
+  const tick = () => {
+    scan = (scan + 0.7 + Math.random() * 1.6) % 100;
+    if (scanTag) scanTag.textContent = 'SCAN ' + scan.toFixed(1).padStart(4, '0') + '%';
+    fills.forEach((f, i) => {
+      const p = Math.min(97, base[i] + Math.sin(Date.now() / 2600 + i * 2) * 2.2);
+      f.style.width = p.toFixed(1) + '%';
+      if (vals[i]) vals[i].textContent = Math.round(p) + '%';
+    });
+  };
+  const sync = () => {
+    const run = hudVisible && !document.hidden;
+    if (run && !hudTimer) { tick(); hudTimer = setInterval(tick, 1000); }
+    if (!run && hudTimer) { clearInterval(hudTimer); hudTimer = null; }
+  };
+  new IntersectionObserver((es) => {
+    hudVisible = es[0].isIntersecting;
+    hud.classList.toggle('is-paused', !hudVisible);
+    sync();
+  }, { threshold: 0.2 }).observe(hud);
+  document.addEventListener('visibilitychange', sync);
+}
+
 // ===== ЗВЁЗДЫ С ПАРАЛЛАКСОМ =====
 const canvas = document.getElementById('stars');
 if (canvas && !reduced) {
