@@ -581,7 +581,7 @@ section { position: relative; overflow: hidden; }
 .hero__portal {
   position: absolute;
   left: 50%; top: 50%;
-  width: 190px; height: 190px;
+  width: 150px; height: 150px;
   margin: -75px 0 0 -75px;
   border-radius: 50%;
   background: url('../img/warp-corridor.jpg') center / cover no-repeat;
@@ -599,7 +599,7 @@ section { position: relative; overflow: hidden; }
   position: absolute; inset: -18%;
   border-radius: 50%;
   background: radial-gradient(50% 50% at 50% 50%,
-    rgba(255,255,255,.8), rgba(111,227,255,.3) 45%, transparent 72%);
+    rgba(255,255,255,.7), rgba(111,227,255,.3) 45%, transparent 72%);
   filter: blur(6px);
 }
 /* до заморозки ролика кнопок не видно, но место под них занято — макет не прыгает */
@@ -638,6 +638,7 @@ section { position: relative; overflow: hidden; }
   transition: opacity 1.2s ease .8s;
   --hud: var(--beam);
   --hud-soft: rgba(111,227,255,.35);
+  --hud-bright: #F2FBFF;
 }
 .hero.is-ready .hud { opacity: 1; }
 .hud.is-paused * { animation-play-state: paused !important; }
@@ -676,37 +677,37 @@ section { position: relative; overflow: hidden; }
 }
 @keyframes hudScan { 0% { top: -4%; } 100% { top: 104%; } }
 
-.hud__reticle {
+/* мини-порталы над башнями: открываются редко и приглушённо */
+.hud__gate {
   position: absolute;
-  width: 84px; height: 84px;
+  width: 96px; height: 96px;
   border-radius: 50%;
-  border: 1px dashed var(--hud);
-  opacity: .3;
-  animation: hudSpin 16s linear infinite;
+  background: url('../img/warp-corridor.jpg') center / cover no-repeat;
+  filter: blur(4px) saturate(1.15) brightness(1.1);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,.85) 28%, rgba(0,0,0,.4) 55%, transparent 74%);
+  mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,.85) 28%, rgba(0,0,0,.4) 55%, transparent 74%);
+  opacity: 0;
+  transform: scale(.2);
+  pointer-events: none;
 }
-.hud__reticle::before {
+.hud__gate::after {
   content: '';
-  position: absolute; inset: 12px;
+  position: absolute; inset: -18%;
   border-radius: 50%;
-  border: 1px solid var(--hud);
-  opacity: .6;
+  background: radial-gradient(50% 50% at 50% 50%,
+    rgba(255,255,255,.65), rgba(111,227,255,.28) 45%, transparent 72%);
+  filter: blur(5px);
 }
-.hud__reticle::after {
-  content: '';
-  position: absolute; left: 50%; top: 50%;
-  width: 6px; height: 6px; margin: -3px;
-  border-radius: 50%;
-  background: var(--hud);
-  box-shadow: 0 0 10px var(--hud);
+/* левый — НАД башней; правый — над своей */
+.hud__gate--a { left: 20%; top: 44%; }
+.hud__gate--b { right: 16%; top: 34%; width: 64px; height: 64px; }
+.hud__gate.is-open { animation: gateFlash 2.4s ease-out; }
+@keyframes gateFlash {
+  0%   { opacity: 0; transform: scale(.2); }
+  30%  { opacity: .5; transform: scale(1); }
+  70%  { opacity: .32; transform: scale(1.12); }
+  100% { opacity: 0; transform: scale(1.28); }
 }
-.hud__reticle--a { left: 20%; top: 56%; }
-.hud__reticle--b {
-  right: 16%; top: 34%;
-  width: 56px; height: 56px;
-  animation-direction: reverse;
-  animation-duration: 12s;
-}
-@keyframes hudSpin { to { transform: rotate(360deg); } }
 
 .hud__radar {
   position: absolute;
@@ -729,21 +730,27 @@ section { position: relative; overflow: hidden; }
   background: conic-gradient(from 0deg, transparent 0 76%, var(--hud-soft) 92%, transparent 100%);
   animation: hudSpin 4.5s linear infinite;
 }
+@keyframes hudSpin { to { transform: rotate(360deg); } }
 
 .hud__forge {
   position: absolute;
   right: 6%; bottom: 12%;
   width: min(240px, 34vw);
   display: flex; flex-direction: column; gap: 12px;
-  opacity: .5;
+  opacity: .68;
 }
 .hud__bar { display: flex; flex-direction: column; gap: 5px; }
 .hud__bar-head {
   display: flex; justify-content: space-between;
   font-size: 9px; font-weight: 700;
   letter-spacing: .26em; text-transform: uppercase;
-  color: var(--hud);
+  color: var(--hud-bright);
   font-variant-numeric: tabular-nums;
+}
+.hud__bar-head b { transition: color .3s, text-shadow .3s; }
+.hud__bar.is-surge .hud__bar-head b {
+  color: #fff;
+  text-shadow: 0 0 14px var(--hud-bright);
 }
 .hud__bar-track {
   position: relative;
@@ -753,9 +760,18 @@ section { position: relative; overflow: hidden; }
 }
 .hud__bar-track i {
   position: absolute; top: 0; bottom: 0; left: 0;
-  background: linear-gradient(90deg, transparent, var(--hud));
-  box-shadow: 0 0 8px var(--hud-soft);
-  transition: width .9s ease;
+  background: linear-gradient(90deg, transparent, var(--hud-bright));
+  box-shadow: 0 0 10px var(--hud-soft);
+  transition: width .45s ease;
+}
+/* светящаяся точка на кончике заливки */
+.hud__bar-track i::after {
+  content: '';
+  position: absolute; right: -2px; top: 50%;
+  width: 5px; height: 5px; margin-top: -2.5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 12px var(--hud-bright);
 }
 .hud__bar-track::after {
   content: '';
@@ -767,7 +783,7 @@ section { position: relative; overflow: hidden; }
 @keyframes hudShimmer { to { left: 130%; } }
 
 @media (max-width: 640px) {
-  .hud__radar, .hud__reticle--b, .hud__tag--tr { display: none; }
+  .hud__radar, .hud__gate--b, .hud__tag--tr { display: none; }
   .hud__forge { right: 5%; bottom: 8%; width: 46vw; }
 }
 
@@ -782,6 +798,7 @@ section { position: relative; overflow: hidden; }
   .holo-card, .holo-card__box { transition: none; }
   .hero__cta, .hero__signal { opacity: 1; transform: none; pointer-events: auto; animation: none; }
   .hero__portal { display: none; }
-    .hud__scan, .hud__reticle, .hud__radar i, .hud__bar-track::after { animation: none; }
+  .hud__scan, .hud__radar i, .hud__bar-track::after { animation: none; }
+  .hud__gate { display: none; }
   .hud { transition: none; }
 }
