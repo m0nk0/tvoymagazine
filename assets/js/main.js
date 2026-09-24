@@ -213,20 +213,26 @@ if (canvas && !reduced) {
   draw();
 }
 
-// ===== ИСКРЫ МАНИФЕСТА =====
+// ===== ИСКРЫ МАНИФЕСТА: ореол вокруг планеты, широкий и тихий =====
 const spark = document.getElementById('spark');
 if (spark && !reduced) {
   const sctx = spark.getContext('2d');
   let parts = [];
+  // колокол вокруг центра: широко, но без углов
+  const randX = () => {
+    const cx = spark.width / 2;
+    const spread = spark.width * 0.8;
+    return cx + (Math.random() + Math.random() - 1) * (spread / 2);
+  };
   const smake = () => {
     spark.width = spark.offsetWidth;
     spark.height = spark.offsetHeight;
     parts = Array.from({ length: 42 }, () => ({
-      x: Math.random() * spark.width,
-      y: spark.height + Math.random() * spark.height,
+      x: randX(),
+      y: spark.height * 0.35 + Math.random() * spark.height * 0.65,
       v: 0.3 + Math.random() * 0.9,
       r: 0.6 + Math.random() * 1.6,
-      a: 0.2 + Math.random() * 0.6,
+      a: 0.08 + Math.random() * 0.3,
       f: Math.random() * Math.PI * 2,
     }));
   };
@@ -237,7 +243,7 @@ if (spark && !reduced) {
     for (const p of parts) {
       p.y -= p.v;
       p.f += 0.05;
-      if (p.y < -10) { p.y = spark.height + 10; p.x = Math.random() * spark.width; }
+      if (p.y < -10) { p.y = spark.height + 10; p.x = randX(); }
       sctx.globalAlpha = p.a * (0.6 + 0.4 * Math.sin(p.f));
       sctx.fillStyle = '#9FE8FF';
       sctx.beginPath();

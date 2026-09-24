@@ -218,9 +218,19 @@ section { position: relative; overflow: hidden; }
   font-size: clamp(14px, 1.6vw, 18px);
 }
 
+/* сквозной шов вселенной: та же линия, что отделяет футер */
+.manifest::before,
+.worlds::before {
+  content: '';
+  position: absolute; left: 0; right: 0; top: 0; height: 1px;
+  z-index: 3;
+  background: linear-gradient(90deg, transparent, rgba(111,227,255,.4), transparent);
+}
+
 /* ============ S2 МАНИФЕСТ ============ */
 .manifest__spark {
   position: absolute; inset: 0;
+  width: 100%; height: 100%;
   z-index: 1; pointer-events: none;
 }
 .manifest__list {
