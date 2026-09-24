@@ -89,6 +89,7 @@ if (video && !reduced) {
     if (started) return;
     started = true;
     video.currentTime = 0; // старт строго с первой секунды
+    if (heroEl) heroEl.classList.add('is-playing'); // запуск таймлайна проявления текста
     play();
   };
 

@@ -142,6 +142,20 @@ main { position: relative; z-index: 2; }
   color: var(--text-dim);
   max-width: 620px;
 }
+
+/* проявление текста из прозрачности: с середины ролика, сверху вниз */
+.hero.is-playing .hero__over  { animation: heroTextIn 1.4s ease 4.8s both; }
+.hero.is-playing .hero__title { animation: heroTitleIn 1.6s ease 5.8s both; }
+.hero.is-playing .hero__sub   { animation: heroTextIn 1.6s ease 7s both; }
+@keyframes heroTextIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes heroTitleIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: .6; transform: none; }
+}
+
 .hero__cta {
   margin-top: 48px;
   display: inline-block;
@@ -801,4 +815,5 @@ section { position: relative; overflow: hidden; }
   .hud__scan, .hud__radar i, .hud__bar-track::after { animation: none; }
   .hud__gate { display: none; }
   .hud { transition: none; }
+    .hero.is-playing .hero__over, .hero.is-playing .hero__title, .hero.is-playing .hero__sub { animation: none; }
 }
