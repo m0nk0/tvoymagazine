@@ -713,7 +713,7 @@ section { position: relative; overflow: hidden; }
   filter: blur(5px);
 }
 /* левый — НАД башней; правый — над своей */
-.hud__gate--a { left: 20%; top: 44%; }
+.hud__gate--a { left: 20%; top: 34%; }
 .hud__gate--b { right: 16%; top: 34%; width: 64px; height: 64px; }
 .hud__gate.is-open { animation: gateFlash 2.4s ease-out; }
 @keyframes gateFlash {
