@@ -389,14 +389,8 @@ section { position: relative; overflow: hidden; }
   70%, 100% { box-shadow: 0 0 0 9px transparent; }
 }
 
-/* миры в ковке: тихие, не кликаются, маяк не пульсирует */
-.world-card--dev { cursor: default; }
-.world-card--dev:hover,
-.world-card--dev:focus-visible {
-  transform: none;
-  box-shadow: none;
-  border-color: var(--accent-soft);
-}
+/* миры в ковке: двери открыты, но маяк не пульсирует */
+.world-card--dev { cursor: pointer; }
 .world-card--dev .world-card__status { opacity: .55; }
 .world-card--dev .world-card__status i { animation: none; box-shadow: none; opacity: .6; }
 .worlds__grid--dev { margin-top: 28px; }
