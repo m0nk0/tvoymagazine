@@ -122,28 +122,52 @@ if (reduced) {
   if (h) h.classList.add('is-ready');
 }
 
-// ===== HUD: ЖИВАЯ ТЕЛЕМЕТРИЯ (тик раз в секунду, пауза вне кадра) =====
+// ===== HUD: ЖИВАЯ ТЕЛЕМЕТРИЯ + РЕДКИЕ ПОРТАЛЫ НАД БАШНЯМИ =====
 const hud = document.querySelector('.hud');
 if (hud && !reduced) {
   const scanTag = document.getElementById('hudScanTag');
+  const bars = [...hud.querySelectorAll('.hud__bar')];
   const fills = [...hud.querySelectorAll('.hud__bar-track i')];
   const vals = [...hud.querySelectorAll('.hud__bar-head b')];
+  const gates = [...hud.querySelectorAll('.hud__gate')];
   const base = [64, 31];
-  let scan = 0, hudTimer = null, hudVisible = false;
+  const cur = [...base];
+  let scan = 0, hudTimer = null, gateTimer = null, gateIdx = 0, hudVisible = false;
 
   const tick = () => {
     scan = (scan + 0.7 + Math.random() * 1.6) % 100;
     if (scanTag) scanTag.textContent = 'SCAN ' + scan.toFixed(1).padStart(4, '0') + '%';
     fills.forEach((f, i) => {
-      const p = Math.min(97, base[i] + Math.sin(Date.now() / 2600 + i * 2) * 2.2);
+      let p = cur[i] + (Math.random() - 0.42) * 1.6;
+      if (Math.random() < 0.07) {
+        p += 3.5;
+        bars[i].classList.add('is-surge');
+        setTimeout(() => bars[i].classList.remove('is-surge'), 600);
+      }
+      p = Math.max(base[i] - 5, Math.min(base[i] + 8, p));
+      cur[i] = p;
       f.style.width = p.toFixed(1) + '%';
       if (vals[i]) vals[i].textContent = Math.round(p) + '%';
     });
   };
+
+  // то один, то другой портал: вспышка раз в 6 секунд, приглушённо
+  const gateTick = () => {
+    const g = gates[gateIdx % gates.length];
+    gateIdx++;
+    if (!g) return;
+    g.classList.remove('is-open');
+    void g.offsetWidth; // перезапуск анимации
+    g.classList.add('is-open');
+    setTimeout(() => g.classList.remove('is-open'), 2500);
+  };
+
   const sync = () => {
     const run = hudVisible && !document.hidden;
-    if (run && !hudTimer) { tick(); hudTimer = setInterval(tick, 1000); }
+    if (run && !hudTimer) { tick(); hudTimer = setInterval(tick, 450); }
     if (!run && hudTimer) { clearInterval(hudTimer); hudTimer = null; }
+    if (run && !gateTimer) gateTimer = setInterval(gateTick, 6000);
+    if (!run && gateTimer) { clearInterval(gateTimer); gateTimer = null; }
   };
   new IntersectionObserver((es) => {
     hudVisible = es[0].isIntersecting;
@@ -152,7 +176,6 @@ if (hud && !reduced) {
   }, { threshold: 0.2 }).observe(hud);
   document.addEventListener('visibilitychange', sync);
 }
-
 // ===== ЗВЁЗДЫ С ПАРАЛЛАКСОМ =====
 const canvas = document.getElementById('stars');
 if (canvas && !reduced) {
