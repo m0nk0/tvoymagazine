@@ -581,7 +581,7 @@ section { position: relative; overflow: hidden; }
 .hero__portal {
   position: absolute;
   left: 50%; top: 50%;
-  width: 150px; height: 150px;
+  width: 190px; height: 190px;
   margin: -75px 0 0 -75px;
   border-radius: 50%;
   background: url('../img/warp-corridor.jpg') center / cover no-repeat;
