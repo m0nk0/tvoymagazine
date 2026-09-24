@@ -22,7 +22,7 @@
     radial-gradient(70% 55% at 50% 45%, var(--accent-soft), transparent 75%);
 }
 /* все дети hero в потоке, кроме фона, вуали и ссылки возврата */
-.world-hero > *:not(.world-hero__bg):not(.world-hero__veil):not(.world-back) {
+.world-hero > *:not(.world-hero__bg):not(.world-hero__veil):not(.world-back):not(.hud) {
   position: relative; z-index: 2;
 }
 .world-back {
