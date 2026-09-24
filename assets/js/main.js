@@ -232,7 +232,7 @@ if (spark && !reduced) {
       y: spark.height * 0.35 + Math.random() * spark.height * 0.65,
       v: 0.3 + Math.random() * 0.9,
       r: 0.6 + Math.random() * 1.6,
-      a: 0.08 + Math.random() * 0.3,
+      a: 0.12 + Math.random() * 0.38,
       f: Math.random() * Math.PI * 2,
     }));
   };
@@ -244,7 +244,7 @@ if (spark && !reduced) {
       p.y -= p.v;
       p.f += 0.05;
       if (p.y < -10) { p.y = spark.height + 10; p.x = randX(); }
-      sctx.globalAlpha = p.a * (0.6 + 0.4 * Math.sin(p.f));
+      sctx.globalAlpha = p.a * (0.8 + 0.2 * Math.sin(p.f));
       sctx.fillStyle = '#9FE8FF';
       sctx.beginPath();
       sctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
