@@ -202,3 +202,23 @@
   box-shadow: none;
   cursor: default;
 }
+/* окно скана с постером: пропорция видео, макет не прыгнет при замене */
+.scan-window--soon { position: relative; }
+.scan-window--soon img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1920 / 1040;
+  object-fit: cover;
+  filter: saturate(.9) brightness(.85);
+}
+.scan-soon-badge {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px dashed var(--accent-soft);
+  background: rgba(5,11,20,.7);
+  color: var(--accent);
+  font-size: 11px; font-weight: 800;
+  letter-spacing: .3em; text-transform: uppercase;
+}
