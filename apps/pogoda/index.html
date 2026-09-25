@@ -22,6 +22,29 @@
     body { --accent: #5EA8FF; --accent-soft: rgba(94,168,255,.35); --hud-bright: #DCEBFF; }
     .world-hero__bg { background-image: url('../../assets/img/worlds/pogoda/pogoda-interior.jpg'); }
   </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Твоя Погода",
+  "operatingSystem": "Android",
+  "applicationCategory": "WeatherApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "RUB"
+  },
+  "description": "ИИ сканер комфорта погоды — определяет, как телу будет на самом деле, и даёт советы по одежде и активности",
+  "author": {
+    "@type": "Person",
+    "name": "Valerij Vasiljev"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Твой Magazine"
+  }
+}
+</script>
 </head>
 <body data-world-enter>
   <div class="preloader" id="preloader">
@@ -114,10 +137,12 @@
         <p class="footer__note">Реальные приложения для нового дивного мира</p>
       </div>
       <nav class="footer__col" aria-label="Миры">
-        <p class="footer__head">Миры</p>
-        <a href="../../apps/nogotochki/">Твои Ноготочки</a>
-        <a href="../../apps/lifelens/">LifeLens AI</a>
-      </nav>
+      <p class="footer__head">Миры</p>
+      <a href="../../apps/nogotochki/">Твои Ноготочки</a>
+      <a href="../../apps/lifelens/">LifeLens AI</a>
+      <a href="../../apps/pogoda/">Твоя Погода</a>
+      <a href="../../apps/eda/">Твоя Еда</a>
+    </nav>
       <nav class="footer__col" aria-label="Вселенная">
         <p class="footer__head">Вселенная</p>
         <a href="../../">Главная</a>
