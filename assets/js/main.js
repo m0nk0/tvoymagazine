@@ -228,12 +228,12 @@ if (spark && !reduced) {
   const smake = () => {
     spark.width = spark.offsetWidth;
     spark.height = spark.offsetHeight;
-    parts = Array.from({ length: 42 }, () => ({
+    parts = Array.from({ length: 60 }, () => ({
       x: randX(),
       y: spark.height * 0.35 + Math.random() * spark.height * 0.65,
-      v: 0.3 + Math.random() * 0.9,
-      r: 0.6 + Math.random() * 1.6,
-      a: 0.08 + Math.random() * 0.3,
+      v: 0.4 + Math.random() * 1.2,
+      r: 0.8 + Math.random() * 2.0,
+      a: 0.15 + Math.random() * 0.45,
       f: Math.random() * Math.PI * 2,
     }));
   };
@@ -246,7 +246,7 @@ if (spark && !reduced) {
       p.f += 0.05;
       if (p.y < -10) { p.y = spark.height + 10; p.x = randX(); }
       sctx.globalAlpha = p.a * (0.6 + 0.4 * Math.sin(p.f));
-      sctx.fillStyle = '#9FE8FF';
+      sctx.fillStyle = '#BFE9FF';
       sctx.beginPath();
       sctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
       sctx.fill();
