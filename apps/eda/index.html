@@ -20,8 +20,7 @@
   <link rel="stylesheet" href="../../assets/css/world.css">
   <style>
     body { --accent: #FFC24B; --accent-soft: rgba(255,194,75,.35); --hud-bright: #FFF3D6; }
-    /* ЗАГЛУШКА: замени на интерьер мира, когда будет арт */
-    .world-hero__bg { background-image: url('../../assets/img/city-lake.jpg'); }
+    .world-hero__bg { background-image: url('../../assets/img/eda/eda-interior.jpg'); }
   </style>
 </head>
 <body data-world-enter>
@@ -37,7 +36,7 @@
       <div class="world-hero__bg" aria-hidden="true"></div>
       <div class="world-hero__veil" aria-hidden="true"></div>
 
-      <!-- HUD Мира 4: жёлтая телеметрия питания -->
+      <!-- HUD Мира 4: янтарная телеметрия питания -->
       <div class="hud" aria-hidden="true">
         <span class="hud__corner hud__corner--tl"></span>
         <span class="hud__corner hud__corner--tr"></span>
@@ -87,18 +86,14 @@
       </div>
     </section>
 
-    <!-- ============ ОКНО СКАНА: СЛОТ ПОД ВИДЕО ============ -->
+    <!-- ============ ОКНО СКАНА: ЖИВОЕ ВИДЕО ============ -->
     <section class="scan-window-wrap">
-      <!-- когда mp4 будет готов: удали scan-slot и раскомментируй video
       <div class="scan-window">
-        <video data-autoplay muted loop playsinline preload="metadata"
-               poster="../../assets/img/worlds/eda/scan-poster.jpg">
+        <video data-autoplay muted loop playsinline preload="metadata">
           <source src="../../assets/video/eda-scan.mp4" type="video/mp4">
         </video>
       </div>
-      -->
-      <div class="scan-slot">Видео скана — в производстве</div>
-      <p class="scan-caption">Так модель будет видеть тарелку: ингредиенты, порции, баланс — и рождается план питания</p>
+      <p class="scan-caption">Так модель видит тарелку: ингредиенты, порции, баланс — и рождается план питания</p>
     </section>
 
     <section class="world-gallery">
