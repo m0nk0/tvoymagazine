@@ -20,8 +20,7 @@
   <link rel="stylesheet" href="../../assets/css/world.css">
   <style>
     body { --accent: #5EA8FF; --accent-soft: rgba(94,168,255,.35); --hud-bright: #DCEBFF; }
-    /* ЗАГЛУШКА: замени на интерьер мира, когда будет арт */
-        .world-hero__bg { background-image: url('../../assets/img/worlds/pogoda/pogoda-interior.jpg'); }
+    .world-hero__bg { background-image: url('../../assets/img/worlds/pogoda/pogoda-interior.jpg'); }
   </style>
 </head>
 <body data-world-enter>
@@ -87,22 +86,15 @@
       </div>
     </section>
 
-    <!-- ============ ОКНО СКАНА: СЛОТ ПОД ВИДЕО ============ -->
+    <!-- ============ ОКНО СКАНА: ВИДЕО ============ -->
     <section class="scan-window-wrap">
-      <!-- когда mp4 будет готов: удали scan-slot и раскомментируй video
       <div class="scan-window">
         <video data-autoplay muted loop playsinline preload="metadata"
                poster="../../assets/img/worlds/pogoda/scan-poster.jpg">
           <source src="../../assets/video/pogoda-scan.mp4" type="video/mp4">
         </video>
       </div>
-      -->
-            <div class="scan-window scan-window--soon">
-        <img src="../../assets/img/worlds/pogoda/scan-poster.jpg"
-             alt="Скан погоды: кадр из будущего видео">
-        <span class="scan-soon-badge">Видео в производстве</span>
-      </div>
-      <p class="scan-caption">Так модель будет видеть небо: слои облачности, ветер, УФ — и рождается индекс комфорта</p>
+      <p class="scan-caption">Так модель видит небо: слои облачности, ветер, УФ — и рождается индекс комфорта</p>
     </section>
 
     <section class="world-gallery">
